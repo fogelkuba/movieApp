@@ -8,6 +8,7 @@ module.exports = {
         path: path.resolve(__dirname, 'js')
     },
     devServer: {
+        hot: true,
         inline: true,
         contentBase: './',
         port: 3001

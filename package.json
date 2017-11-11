@@ -1,7 +1,7 @@
 {
-  "name": "1_przygotowanie_react",
+  "name": "TvApp",
   "version": "1.0.0",
-  "description": "## Zadanie rozwiązywane z wykładowcą",
+  "description": "Aplikacja Zaliczeniowa",
   "main": "webpack.config.js",
   "scripts": {
     "build": "node_modules/webpack/bin/webpack.js",
