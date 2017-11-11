@@ -1,6 +1,7 @@
-# TvApp &ndash;
+# TvApp &ndash; personal project
 
-### Aplikacja dla enstuzjastów seriali
+### Web app for tv series maniacs.
+Now You won't miss any episode of your favourite show!
 
 ### Technologies used:
 - React
@@ -8,3 +9,5 @@
 - Sass
 - Webpack
 - RestApi
+
+App is currently under development
