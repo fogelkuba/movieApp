@@ -36543,90 +36543,96 @@ firebase.initializeApp(config);
 class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            err: ''
+
+        this.login = e => {
+            const email = this.refs.email.value;
+            const password = this.refs.password.value;
+            console.log(email, password);
+
+            const auth = firebase.auth();
+            const promise = auth.signInWithEmailAndPassword(email, password);
+
+            promise.then(user => {
+                var lout = document.querySelector('#logout');
+                var err = "Hello again " + user.email;
+                this.setState({
+                    msg: err
+                });
+                lout.classList.remove('hide');
+            });
+
+            promise.catch(e => {
+                var err = e.message;
+                console.log(err);
+                this.setState({
+                    msg: err
+                });
+            });
         };
-        this.login = this.login.bind(this);
-        this.signup = this.signup.bind(this);
-        this.logout = this.logout.bind(this);
-        this.google = this.google.bind(this);
-    }
-    login(e) {
-        const email = this.refs.email.value;
-        const password = this.refs.password.value;
-        console.log(email, password);
 
-        const auth = firebase.auth();
-        const promise = auth.signInWithEmailAndPassword(email, password);
+        this.signup = () => {
+            const email = this.refs.email.value;
+            const password = this.refs.password.value;
+            console.log(email, password);
 
-        promise.then(user => {
+            const auth = firebase.auth();
+            const promise = auth.createUserWithEmailAndPassword(email, password);
+            promise.then(user => {
+                var err = "Welcome " + user.email;
+                firebase.database().ref('users/' + user.uid).set({
+                    email: user.email
+                });
+                console.log(user);
+                this.setState({
+                    msg: err
+                });
+            }).catch(e => {
+                var err = e.message;
+                console.log(err);
+                this.setState({
+                    err: err
+                });
+            });
+        };
+
+        this.logout = () => {
+            firebase.auth().signOut();
+
             var lout = document.querySelector('#logout');
-            var err = "Hello again " + user.email;
+            var msg = "Thanks for using our app";
             this.setState({
-                err: err
+                msg: msg
             });
-            lout.classList.remove('hide');
-        });
+            lout.classList.add('hide');
+        };
 
-        promise.catch(e => {
-            var err = e.message;
-            console.log(err);
-            this.setState({
-                err: err
-            });
-        });
-    }
-    signup() {
-        const email = this.refs.email.value;
-        const password = this.refs.password.value;
-        console.log(email, password);
+        this.google = () => {
+            console.log('google login method');
+            var provider = new firebase.auth.GoogleAuthProvider();
+            var promise = firebase.auth().signInWithPopup(provider);
 
-        const auth = firebase.auth();
-        const promise = auth.createUserWithEmailAndPassword(email, password);
-        promise.then(user => {
-            var err = "Welcome " + user.email;
-            firebase.database().ref('users/' + user.uid).set({
-                email: user.email
+            promise.then(result => {
+                var user = result.user;
+                firebase.database().ref('users/' + user.uid).set({
+                    email: user.email,
+                    name: user.displayName
+                });
+            }).catch(e => {
+                var msg = e.message;
+                console.log(msg);
             });
-            console.log(user);
-            this.setState({
-                err: err
-            });
-        }).catch(e => {
-            var err = e.message;
-            console.log(err);
-            this.setState({
-                err: err
-            });
-        });
-    }
-    logout() {
-        firebase.auth().signOut();
+            //moze byc redirect zamiast popup
+        };
 
-        var lout = document.querySelector('#logout');
-        var msg = "Thanks for using our app";
-        this.setState({
-            err: msg
-        });
-        lout.classList.add('hide');
+        this.state = {
+            msg: ''
+        };
+        // this.login = this.login.bind(this);
+        // this.signup = this.signup.bind(this);
+        // this.logout = this.logout.bind(this);
+        // this.google = this.google.bind(this);
     }
-    google() {
-        console.log('google login method');
-        var provider = new firebase.auth.GoogleAuthProvider();
-        var promise = firebase.auth().signInWithPopup(provider);
 
-        promise.then(result => {
-            var user = result.user;
-            firebase.database().ref('users/' + user.uid).set({
-                email: user.email,
-                name: user.displayName
-            });
-        }).catch(e => {
-            var msg = e.message;
-            console.log(msg);
-        });
-        //moze byc redirect zamiast popup
-    }
     render() {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
@@ -36638,7 +36644,7 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'p',
                 null,
-                this.state.err
+                this.state.msg
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'button',
