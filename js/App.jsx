@@ -1,17 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import Authen from './Authen.jsx';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import './App.scss';
-import Authen from './authen.jsx'
+
 
 class App extends React.Component {
     render() {
         return(
             <div>
-                TvApp
+                <Navbar>
+                    <NavbarBrand href="#">TvApp</NavbarBrand>
+                </Navbar>
+
                 <Authen />
             </div>
         )
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+export default App;

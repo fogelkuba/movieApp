@@ -1,5 +1,7 @@
 import React from 'react';
 var firebase = require('firebase');
+import { Button, Alert } from 'reactstrap';
+import './Authen.scss';
 
 var config = {
     apiKey: "AIzaSyAoH8Bz5lqTNConqTWnWbDwLafQC3G-RqU",
@@ -17,10 +19,6 @@ class Authen extends React.Component {
         this.state = {
             msg: ''
         };
-        // this.login = this.login.bind(this);
-        // this.signup = this.signup.bind(this);
-        // this.logout = this.logout.bind(this);
-        // this.google = this.google.bind(this);
     }
     login =(e) => {
         const email = this.refs.email.value;
@@ -99,18 +97,18 @@ class Authen extends React.Component {
             var msg = e.message;
             console.log(msg);
         })
-    //moze byc redirect zamiast popup
     }
     render(){
         return(
             <div>
                 <input id="email" type="email" ref="email" placeholder="enter your email"></input><br/>
                 <input id="pass" type="password" ref="password" placeholder="enter your password"></input><br/>
-            <p>{this.state.msg}</p>
-                <button onClick={this.login}>Log In</button>
-                <button onClick={this.signup}>Sing Up</button>
-                <button onClick={this.logout} id="logout" className="hide">Log Out</button><br/>
-                <button onClick={this.google} id="google">Log In With Google</button>
+                <Alert color="secondary">{this.state.msg}</Alert>
+                <Button outline color="secondary" onClick={this.login}>Log In</Button>
+                <Button onClick={this.signup}>Sing Up</Button>
+                <Button onClick={this.logout} id="logout" className="hide">Log Out</Button>
+            <br/>
+                <Button outline color="danger" onClick={this.google} id="google">Log In With Google</Button>
         </div>
         );
     }

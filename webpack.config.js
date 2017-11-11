@@ -2,7 +2,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: './js/App.jsx',
+    entry: './js/index.jsx',
     output: {
         filename: 'out.js',
         path: path.resolve(__dirname, 'js')
@@ -27,7 +27,7 @@ module.exports = {
                 }
             },
             {
-                test: /\.scss$/,
+                test: /\.(css|scss)$/,
                 use: [
                     {
                         loader: "style-loader"
