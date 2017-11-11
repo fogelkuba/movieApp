@@ -1,3 +1,3 @@
-# Podstawowy routing &ndash; zadania
+# TvApp &ndash;
 
-### Przygotowanie
+### Aplikacja dla enstuzjastów seriali
