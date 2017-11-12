@@ -1,19 +1,19 @@
 import React from 'react';
-import Navigation from './Navigation.jsx';
-import Authen from './Authen.jsx';
+
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
-import './App.scss';
+import './Navigation.scss';
 
 
-class App extends React.Component {
+class Navigation extends React.Component {
     render() {
         return(
             <div>
-                <Navigation />
-                <Authen />
+                <Navbar>
+                    <NavbarBrand href="#">TvApp</NavbarBrand>
+                </Navbar>
             </div>
         )
     }
 }
 
-export default App;
+export default Navigation;

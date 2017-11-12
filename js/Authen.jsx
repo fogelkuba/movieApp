@@ -1,6 +1,7 @@
 import React from 'react';
 var firebase = require('firebase');
-import { Button, Alert } from 'reactstrap';
+var FontAwesome = require('react-fontawesome');
+import { Button, Alert, Input, Container, Row, Col } from 'reactstrap';
 import './Authen.scss';
 
 var config = {
@@ -100,16 +101,64 @@ class Authen extends React.Component {
     }
     render(){
         return(
-            <div>
-                <input id="email" type="email" ref="email" placeholder="enter your email"></input><br/>
-                <input id="pass" type="password" ref="password" placeholder="enter your password"></input><br/>
-                <Alert color="secondary">{this.state.msg}</Alert>
-                <Button outline color="secondary" onClick={this.login}>Log In</Button>
-                <Button onClick={this.signup}>Sing Up</Button>
-                <Button onClick={this.logout} id="logout" className="hide">Log Out</Button>
-            <br/>
-                <Button outline color="danger" onClick={this.google} id="google">Log In With Google</Button>
-        </div>
+            <Container>
+                <Row>
+                    <Col md={{size:4, offset:3}}>
+                        <input
+                            id="email"
+                            type="email"
+                            ref="email"
+                            placeholder="enter your email">
+                        </input>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={{size:4, offset:1}}>
+                        <input
+                            id="pass"
+                            type="password"
+                            ref="password"
+                            placeholder="enter your password">
+                        </input>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md="4">
+                        <Alert color="secondary">{this.state.msg}</Alert>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md="4">
+                        <Button
+                            outline color="secondary"
+                            onClick={this.login}>
+                            <FontAwesome name="user-o"/> Log In
+                        </Button>
+                        <Button
+                            outline color="secondary"
+                            onClick={this.signup}>
+                            <FontAwesome name="sign-in"/> Sing Up
+                        </Button>
+                        <Button
+                            outline color="secondary"
+                            onClick={this.logout}
+                            id="logout"
+                            className="">
+                            <FontAwesome name="sign-out"/> Log Out
+                        </Button>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md="4">
+                        <Button
+                            outline color="danger"
+                            onClick={this.google}
+                            id="google">
+                            <FontAwesome name="google"/> Log In With Google
+                        </Button>
+                    </Col>
+                </Row>
+            </Container>
         );
     }
 }
