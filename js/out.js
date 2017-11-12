@@ -42072,13 +42072,13 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
             promise.then(user => {
                 var lout = document.querySelector('#logout');
-                var err = "Hello again " + user.email;
+                var msg = "Hello again " + user.email;
                 this.setState({
-                    msg: err
+                    msg: msg,
+                    user: user
                 });
                 lout.classList.remove('hide');
             });
-
             promise.catch(e => {
                 var err = e.message;
                 console.log(err);
@@ -42096,13 +42096,13 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             const auth = firebase.auth();
             const promise = auth.createUserWithEmailAndPassword(email, password);
             promise.then(user => {
-                var err = "Welcome " + user.email;
+                var msg = "Welcome " + user.email;
                 firebase.database().ref('users/' + user.uid).set({
                     email: user.email
                 });
                 console.log(user);
                 this.setState({
-                    msg: err
+                    msg: msg
                 });
             }).catch(e => {
                 var err = e.message;
@@ -42119,13 +42119,14 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             var lout = document.querySelector('#logout');
             var msg = "Thanks for using our app";
             this.setState({
-                msg: msg
+                msg: msg,
+                user: null
             });
             lout.classList.add('hide');
         };
 
         this.google = () => {
-            console.log('google login method');
+            console.log('google singin method');
             var provider = new firebase.auth.GoogleAuthProvider();
             var promise = firebase.auth().signInWithPopup(provider);
 
@@ -42144,6 +42145,16 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         this.state = {
             msg: ''
         };
+    }
+
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                this.setState({
+                    user: user
+                });
+            }
+        });
     }
 
     render() {
@@ -42236,7 +42247,7 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                             onClick: this.google,
                             id: 'google' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(FontAwesome, { name: 'google' }),
-                        ' Log In With Google'
+                        ' Sign In With Google'
                     )
                 )
             )

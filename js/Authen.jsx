@@ -19,8 +19,8 @@ class Authen extends React.Component {
         super(props);
         this.state = {
             msg: ''
-        };
-    }
+        }
+    };
     login =(e) => {
         const email = this.refs.email.value;
         const password = this.refs.password.value;
@@ -29,23 +29,23 @@ class Authen extends React.Component {
         const auth = firebase.auth();
         const promise = auth.signInWithEmailAndPassword(email, password);
 
-        promise.then(user=>{
+        promise.then(user => {
             var lout = document.querySelector('#logout');
-            var err = "Hello again " + user.email;
+            var msg = "Hello again " + user.email;
             this.setState({
-                msg: err
+                msg: msg,
+                user: user
             })
             lout.classList.remove('hide')
         })
-
-        promise.catch(e=>{
+        promise.catch(e => {
             var err = e.message;
             console.log(err);
             this.setState({
                 msg: err
             })
         })
-    }
+    };
     signup = () => {
         const email = this.refs.email.value;
         const password = this.refs.password.value;
@@ -55,35 +55,36 @@ class Authen extends React.Component {
         const promise = auth.createUserWithEmailAndPassword(email, password);
         promise
         .then(user =>{
-            var err = "Welcome " + user.email;
+            var msg = "Welcome " + user.email;
             firebase.database().ref('users/' + user.uid).set({
                 email: user.email
             });
             console.log(user);
             this.setState({
-                msg: err
+                msg: msg
             })
         })
-        .catch(e=>{
+        .catch(e => {
             var err = e.message;
             console.log(err);
             this.setState({
                 err: err
             })
         })
-    }
+    };
     logout = () =>{
         firebase.auth().signOut();
 
         var lout = document.querySelector('#logout');
         var msg = "Thanks for using our app"
         this.setState({
-            msg: msg
+            msg: msg,
+            user: null
         })
         lout.classList.add('hide')
-    }
+    };
     google = () =>{
-        console.log('google login method');
+        console.log('google singin method');
         var provider = new firebase.auth.GoogleAuthProvider();
         var promise = firebase.auth().signInWithPopup(provider);
 
@@ -98,7 +99,18 @@ class Authen extends React.Component {
             var msg = e.message;
             console.log(msg);
         })
-    }
+    };
+    
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({
+                    user: user
+                })
+            }
+        })
+    };
+
     render(){
         return(
             <Container>
@@ -154,7 +166,7 @@ class Authen extends React.Component {
                             outline color="danger"
                             onClick={this.google}
                             id="google">
-                            <FontAwesome name="google"/> Log In With Google
+                            <FontAwesome name="google"/> Sign In With Google
                         </Button>
                     </Col>
                 </Row>
