@@ -42152,6 +42152,7 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             if (user) {
                 this.setState({
                     user: user
+                    //msg: 'You are logged in.'
                 });
             }
         });

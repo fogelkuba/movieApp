@@ -100,12 +100,13 @@ class Authen extends React.Component {
             console.log(msg);
         })
     };
-    
+
     componentDidMount() {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.setState({
-                    user: user
+                    user: user,
+                    //msg: 'You are logged in.'
                 })
             }
         })
