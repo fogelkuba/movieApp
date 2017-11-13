@@ -81,7 +81,8 @@ class Authen extends React.Component {
             msg: msg,
             user: null
         })
-        lout.classList.add('hide')
+        lout.classList.add('hide');
+
     };
     google = () =>{
         console.log('google singin method');
@@ -101,16 +102,13 @@ class Authen extends React.Component {
         })
     };
 
-    componentDidMount() {
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                this.setState({
-                    user: user,
-                    //msg: 'You are logged in.'
-                })
-            }
-        })
-    };
+    componentDidMount(){
+        this.props.checkLogin();
+    }
+
+    componentDidUpdated(){
+        this.props.checkLogin();
+    }
 
     render(){
         return(

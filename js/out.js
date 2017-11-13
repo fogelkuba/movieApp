@@ -42010,23 +42010,71 @@ module.exports = function (css) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Navigation_jsx__ = __webpack_require__(371);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Authen_jsx__ = __webpack_require__(270);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_reactstrap__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__App_scss__ = __webpack_require__(368);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__App_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__App_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Profile_jsx__ = __webpack_require__(374);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_reactstrap__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__App_scss__ = __webpack_require__(368);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__App_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__App_scss__);
 
 
 
 
+
+var firebase = __webpack_require__(271);
 
 
 class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(props) {
+        super(props);
+
+        this.checkLogin = () => {
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    this.setState({
+                        user: user,
+                        logged: true
+                    });
+                } else {
+                    this.setState({
+                        user: null,
+                        logged: false
+                    });
+                }
+            });
+        };
+
+        this.logout = () => {
+            firebase.auth().signOut();
+
+            var lout = document.querySelector('#logout');
+            var msg = "Thanks for using our app";
+            this.setState({
+                msg: msg,
+                user: null
+            });
+            lout.classList.add('hide');
+            this.props.checklogin();
+        };
+
+        this.state = {};
+    }
+
+
     render() {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            null,
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Navigation_jsx__["a" /* default */], null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Authen_jsx__["a" /* default */], null)
-        );
+        if (this.state.logged == 123) {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Navigation_jsx__["a" /* default */], { logOut: this.logout }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Profile_jsx__["a" /* default */], { userData: this.state.user })
+            );
+        } else {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Navigation_jsx__["a" /* default */], null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Authen_jsx__["a" /* default */], { checkLogin: this.checkLogin })
+            );
+        }
     }
 }
 
@@ -42148,14 +42196,11 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     }
 
     componentDidMount() {
-        firebase.auth().onAuthStateChanged(user => {
-            if (user) {
-                this.setState({
-                    user: user
-                    //msg: 'You are logged in.'
-                });
-            }
-        });
+        this.props.checkLogin();
+    }
+
+    componentDidUpdated() {
+        this.props.checkLogin();
     }
 
     render() {
@@ -58177,10 +58222,16 @@ function unregister() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_reactstrap__ = __webpack_require__(165);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Navigation_scss__ = __webpack_require__(372);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Navigation_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Navigation_scss__);
+var _this = this;
+
+
+var FontAwesome = __webpack_require__(353);
 
 
 
-
+var logOutFunction = () => {
+    _this.props.logOut();
+};
 
 class Navigation extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     render() {
@@ -58194,6 +58245,16 @@ class Navigation extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
                     __WEBPACK_IMPORTED_MODULE_1_reactstrap__["f" /* NavbarBrand */],
                     { href: '#' },
                     'TvApp'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
+                    {
+                        outline: true, color: 'secondary',
+                        onClick: this.logOutFunction,
+                        id: 'logout',
+                        className: '' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(FontAwesome, { name: 'sign-out' }),
+                    ' Log Out'
                 )
             )
         );
@@ -58246,6 +58307,27 @@ exports.push([module.i, ".navbar {\n  background: lightgray;\n  margin-bottom: 1
 
 // exports
 
+
+/***/ }),
+/* 374 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+class Profile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    render() {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            null,
+            'Logged user profile.'
+        );
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Profile);
 
 /***/ })
 /******/ ]);
