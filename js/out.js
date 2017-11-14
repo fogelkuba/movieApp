@@ -42051,6 +42051,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 msg: msg,
                 user: null
             });
+            console.log('kliknieto wyloguj');
             lout.classList.add('hide');
             this.props.checklogin();
         };

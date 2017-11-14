@@ -6,7 +6,6 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } f
 var firebase = require('firebase');
 import './App.scss';
 
-
 class App extends React.Component {
     constructor(props){
         super(props);
@@ -38,6 +37,7 @@ class App extends React.Component {
             msg: msg,
             user: null
         })
+        console.log('kliknieto wyloguj')
         lout.classList.add('hide');
         this.props.checklogin();
     };
