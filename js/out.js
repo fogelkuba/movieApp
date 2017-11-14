@@ -24488,13 +24488,13 @@ function continueResumableUpload(location, authWrapper, url, blob, chunkSize, ma
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Alert; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return Container; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return Row; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return Row; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return Col; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return Navbar; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return NavbarBrand; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return Navbar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return NavbarBrand; });
 /* unused harmony export NavbarToggler */
 /* unused harmony export Nav */
-/* unused harmony export NavItem */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return NavItem; });
 /* unused harmony export NavDropdown */
 /* unused harmony export NavLink */
 /* unused harmony export Breadcrumb */
@@ -42012,14 +42012,15 @@ module.exports = function (css) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Authen_jsx__ = __webpack_require__(270);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Profile_jsx__ = __webpack_require__(374);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_reactstrap__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__App_scss__ = __webpack_require__(368);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__App_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__App_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__fire_jsx__ = __webpack_require__(375);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__App_scss__ = __webpack_require__(368);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__App_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__App_scss__);
 
 
 
 
 
-var firebase = __webpack_require__(271);
+
 
 
 class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
@@ -42027,7 +42028,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         super(props);
 
         this.checkLogin = () => {
-            firebase.auth().onAuthStateChanged(user => {
+            __WEBPACK_IMPORTED_MODULE_5__fire_jsx__["a" /* default */].auth().onAuthStateChanged(user => {
                 if (user) {
                     this.setState({
                         user: user,
@@ -42043,7 +42044,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         };
 
         this.logout = () => {
-            firebase.auth().signOut();
+            __WEBPACK_IMPORTED_MODULE_5__fire_jsx__["a" /* default */].auth().signOut();
 
             var lout = document.querySelector('#logout');
             var msg = "Thanks for using our app";
@@ -42061,11 +42062,13 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
 
     render() {
-        if (this.state.logged == 123) {
+        if (this.state.logged == true) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 null,
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Navigation_jsx__["a" /* default */], { logOut: this.logout }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Navigation_jsx__["a" /* default */], {
+                    userEmail: this.state.user.email,
+                    logOut: this.logout }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Profile_jsx__["a" /* default */], { userData: this.state.user })
             );
         } else {
@@ -42091,21 +42094,13 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_reactstrap__ = __webpack_require__(165);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Authen_scss__ = __webpack_require__(366);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Authen_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Authen_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__fire_jsx__ = __webpack_require__(375);
 
-var firebase = __webpack_require__(271);
 var FontAwesome = __webpack_require__(353);
 
 
 
-var config = {
-    apiKey: "AIzaSyAoH8Bz5lqTNConqTWnWbDwLafQC3G-RqU",
-    authDomain: "tvapp-33fc3.firebaseapp.com",
-    databaseURL: "https://tvapp-33fc3.firebaseio.com",
-    projectId: "tvapp-33fc3",
-    storageBucket: "tvapp-33fc3.appspot.com",
-    messagingSenderId: "662339811745"
-};
-firebase.initializeApp(config);
+var firebase = __webpack_require__(271);
 
 class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
@@ -42116,7 +42111,7 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             const password = this.refs.password.value;
             console.log(email, password);
 
-            const auth = firebase.auth();
+            const auth = __WEBPACK_IMPORTED_MODULE_3__fire_jsx__["a" /* default */].auth();
             const promise = auth.signInWithEmailAndPassword(email, password);
 
             promise.then(user => {
@@ -42142,11 +42137,11 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             const password = this.refs.password.value;
             console.log(email, password);
 
-            const auth = firebase.auth();
+            const auth = __WEBPACK_IMPORTED_MODULE_3__fire_jsx__["a" /* default */].auth();
             const promise = auth.createUserWithEmailAndPassword(email, password);
             promise.then(user => {
                 var msg = "Welcome " + user.email;
-                firebase.database().ref('users/' + user.uid).set({
+                __WEBPACK_IMPORTED_MODULE_3__fire_jsx__["a" /* default */].database().ref('users/' + user.uid).set({
                     email: user.email
                 });
                 console.log(user);
@@ -42163,7 +42158,7 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         };
 
         this.logout = () => {
-            firebase.auth().signOut();
+            __WEBPACK_IMPORTED_MODULE_3__fire_jsx__["a" /* default */].auth().signOut();
 
             var lout = document.querySelector('#logout');
             var msg = "Thanks for using our app";
@@ -42177,11 +42172,11 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         this.google = () => {
             console.log('google singin method');
             var provider = new firebase.auth.GoogleAuthProvider();
-            var promise = firebase.auth().signInWithPopup(provider);
+            var promise = __WEBPACK_IMPORTED_MODULE_3__fire_jsx__["a" /* default */].auth().signInWithPopup(provider);
 
             promise.then(result => {
                 var user = result.user;
-                firebase.database().ref('users/' + user.uid).set({
+                __WEBPACK_IMPORTED_MODULE_3__fire_jsx__["a" /* default */].database().ref('users/' + user.uid).set({
                     email: user.email,
                     name: user.displayName
                 });
@@ -42209,7 +42204,7 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             __WEBPACK_IMPORTED_MODULE_1_reactstrap__["d" /* Container */],
             null,
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["g" /* Row */],
+                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["h" /* Row */],
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_1_reactstrap__["c" /* Col */],
@@ -42222,7 +42217,7 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 )
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["g" /* Row */],
+                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["h" /* Row */],
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_1_reactstrap__["c" /* Col */],
@@ -42235,7 +42230,7 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 )
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["g" /* Row */],
+                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["h" /* Row */],
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_1_reactstrap__["c" /* Col */],
@@ -42248,7 +42243,7 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 )
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["g" /* Row */],
+                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["h" /* Row */],
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_1_reactstrap__["c" /* Col */],
@@ -42282,7 +42277,7 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 )
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["g" /* Row */],
+                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["h" /* Row */],
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_1_reactstrap__["c" /* Col */],
@@ -58223,35 +58218,49 @@ function unregister() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_reactstrap__ = __webpack_require__(165);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Navigation_scss__ = __webpack_require__(372);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Navigation_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Navigation_scss__);
-var _this = this;
-
 
 var FontAwesome = __webpack_require__(353);
 
 
 
-var logOutFunction = () => {
-    _this.props.logOut();
-};
-
 class Navigation extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(...args) {
+        var _temp;
+
+        return _temp = super(...args), this.componentDidUpdate = () => {
+            // console.log('nav: ' + this.props.userEmail)
+        }, _temp;
+    }
+
     render() {
+        let helloMsg = '';
+        const mail = this.props.userEmail;
+        if (typeof mail === 'undefined') {
+            helloMsg = '';
+        } else {
+            helloMsg = `Hello ${this.props.userEmail} `;
+        }
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             null,
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* Navbar */],
+                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["f" /* Navbar */],
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_1_reactstrap__["f" /* NavbarBrand */],
+                    __WEBPACK_IMPORTED_MODULE_1_reactstrap__["g" /* NavbarBrand */],
                     { href: '#' },
                     'TvApp'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* NavItem */],
+                    null,
+                    helloMsg
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
                     {
                         outline: true, color: 'secondary',
-                        onClick: this.logOutFunction,
+                        onClick: this.props.logOut,
                         id: 'logout',
                         className: '' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(FontAwesome, { name: 'sign-out' }),
@@ -58304,7 +58313,7 @@ exports = module.exports = __webpack_require__(81)(undefined);
 
 
 // module
-exports.push([module.i, ".navbar {\n  background: lightgray;\n  margin-bottom: 1em; }\n", ""]);
+exports.push([module.i, ".navbar {\n  background: lightgray;\n  margin-bottom: 1em; }\n\nli {\n  list-style: none; }\n", ""]);
 
 // exports
 
@@ -58316,19 +58325,149 @@ exports.push([module.i, ".navbar {\n  background: lightgray;\n  margin-bottom: 1
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Search_jsx__ = __webpack_require__(379);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Recent_jsx__ = __webpack_require__(376);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Upcoming_jsx__ = __webpack_require__(377);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__News_jsx__ = __webpack_require__(378);
+
+
+
+
 
 
 class Profile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     render() {
+        console.log("Profile: " + this.props.userData);
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             null,
-            'Logged user profile.'
+            'Logged user profile.',
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Search_jsx__["a" /* default */], null),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Recent_jsx__["a" /* default */], null),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Upcoming_jsx__["a" /* default */], null),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__News_jsx__["a" /* default */], null)
         );
     }
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Profile);
+
+/***/ }),
+/* 375 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase__ = __webpack_require__(271);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_firebase__);
+
+var config = {
+    apiKey: "AIzaSyAoH8Bz5lqTNConqTWnWbDwLafQC3G-RqU",
+    authDomain: "tvapp-33fc3.firebaseapp.com",
+    databaseURL: "https://tvapp-33fc3.firebaseio.com",
+    projectId: "tvapp-33fc3",
+    storageBucket: "tvapp-33fc3.appspot.com",
+    messagingSenderId: "662339811745"
+};
+var fire = __WEBPACK_IMPORTED_MODULE_0_firebase___default.a.initializeApp(config);
+
+/* harmony default export */ __webpack_exports__["a"] = (fire);
+
+/***/ }),
+/* 376 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+class Recent extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    render() {
+        console.log("Recent: " + this.props.userData);
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            null,
+            "Recent"
+        );
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Recent);
+
+/***/ }),
+/* 377 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+class Upcoming extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    render() {
+        console.log("Upcoming: " + this.props.userData);
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            null,
+            "Upcoming"
+        );
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Upcoming);
+
+/***/ }),
+/* 378 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+class News extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    render() {
+        console.log("News: " + this.props.userData);
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            null,
+            "News"
+        );
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (News);
+
+/***/ }),
+/* 379 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+    componentDidUpdate() {}
+    componentDidMount() {
+        console.log('didMount');
+    }
+    render() {
+        console.log("Upcoming: " + this.props.userData);
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            null,
+            'Search: ',
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { ref: 'search' })
+        );
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Search);
 
 /***/ })
 /******/ ]);

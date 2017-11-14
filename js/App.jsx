@@ -3,7 +3,7 @@ import Navigation from './Navigation.jsx';
 import Authen from './Authen.jsx';
 import Profile from './Profile.jsx'
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
-var firebase = require('firebase');
+import fire from './fire.jsx';
 import './App.scss';
 
 class App extends React.Component {
@@ -14,7 +14,7 @@ class App extends React.Component {
         };
     }
     checkLogin = () => {
-        firebase.auth().onAuthStateChanged((user) => {
+        fire.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.setState({
                     user: user,
@@ -29,7 +29,7 @@ class App extends React.Component {
         })
     }
     logout = () =>{
-        firebase.auth().signOut();
+        fire.auth().signOut();
 
         var lout = document.querySelector('#logout');
         var msg = "Thanks for using our app"
@@ -37,24 +37,26 @@ class App extends React.Component {
             msg: msg,
             user: null
         })
-        console.log('kliknieto wyloguj')
+        console.log('kliknieto wyloguj');
         lout.classList.add('hide');
         this.props.checklogin();
     };
 
     render() {
-        if (this.state.logged==123) {
+        if (this.state.logged == true) {
             return (
                 <div>
-                    <Navigation logOut={this.logout} />
-                <Profile userData={this.state.user}/>
+                    <Navigation
+                        userEmail={this.state.user.email}
+                        logOut={this.logout} />
+                     <Profile userData={this.state.user} />
                 </div>
             )
         }else{
             return(
                 <div>
                     <Navigation />
-                <Authen checkLogin={this.checkLogin}/>
+                <Authen checkLogin={this.checkLogin} />
                 </div>
             )
         }

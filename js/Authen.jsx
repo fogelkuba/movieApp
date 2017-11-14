@@ -1,18 +1,9 @@
 import React from 'react';
-var firebase = require('firebase');
 var FontAwesome = require('react-fontawesome');
 import { Button, Alert, Input, Container, Row, Col } from 'reactstrap';
 import './Authen.scss';
-
-var config = {
-    apiKey: "AIzaSyAoH8Bz5lqTNConqTWnWbDwLafQC3G-RqU",
-    authDomain: "tvapp-33fc3.firebaseapp.com",
-    databaseURL: "https://tvapp-33fc3.firebaseio.com",
-    projectId: "tvapp-33fc3",
-    storageBucket: "tvapp-33fc3.appspot.com",
-    messagingSenderId: "662339811745"
-};
-firebase.initializeApp(config);
+import fire from './fire.jsx';
+var firebase = require('firebase');
 
 class Authen extends React.Component {
     constructor(props){
@@ -26,7 +17,7 @@ class Authen extends React.Component {
         const password = this.refs.password.value;
         console.log(email, password);
 
-        const auth = firebase.auth();
+        const auth = fire.auth();
         const promise = auth.signInWithEmailAndPassword(email, password);
 
         promise.then(user => {
@@ -51,12 +42,12 @@ class Authen extends React.Component {
         const password = this.refs.password.value;
         console.log(email, password);
 
-        const auth = firebase.auth();
+        const auth = fire.auth();
         const promise = auth.createUserWithEmailAndPassword(email, password);
         promise
         .then(user =>{
             var msg = "Welcome " + user.email;
-            firebase.database().ref('users/' + user.uid).set({
+            fire.database().ref('users/' + user.uid).set({
                 email: user.email
             });
             console.log(user);
@@ -73,7 +64,7 @@ class Authen extends React.Component {
         })
     };
     logout = () =>{
-        firebase.auth().signOut();
+        fire.auth().signOut();
 
         var lout = document.querySelector('#logout');
         var msg = "Thanks for using our app"
@@ -87,11 +78,11 @@ class Authen extends React.Component {
     google = () =>{
         console.log('google singin method');
         var provider = new firebase.auth.GoogleAuthProvider();
-        var promise = firebase.auth().signInWithPopup(provider);
+        var promise = fire.auth().signInWithPopup(provider);
 
         promise.then(result=>{
             var user = result.user;
-            firebase.database().ref('users/'+user.uid).set({
+            fire.database().ref('users/'+user.uid).set({
                 email: user.email,
                 name: user.displayName
             })
