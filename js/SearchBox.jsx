@@ -1,37 +1,31 @@
 import React from 'react';
 import Results from './Results.jsx'
 
-const API = 'https://api.github.com/users';
+const API = 'http://api.tvmaze.com/singlesearch/shows?q=';
 
 class Search extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            username: 'fogelkuba',
             name: '',
             avatar: '',
-            repos: '',
-            followers: '',
-            following: '',
-            homeURL: '',
+            rating: '',
+            summary: '',
             notFound: ''
         };
     }
 
-    searchProfile = (username) => {
-        let finalURL = `${API}/${username}`;
+    searchProfile = (query) => {
+        let finalURL = `${API}/${query}`;
 
         fetch(finalURL)
         .then( (res) => res.json() )
         .then( (data) => {
             this.setState({
-                username: data.login,
                 name: data.name,
-                avatar: data.avatar_url,
-                repos: data.public_repos,
-                followers: data.followers,
-                following: data.following,
-                homeURL: data.html_url,
+                avatar: data.image.medium,
+                rating: data.rating.average,
+                summary: data.summary,
                 notFound: data.message
             })
         })
@@ -46,8 +40,7 @@ class Search extends React.Component {
         });
         console.log('Value:' + val);
         this.searchProfile(val);
-        //this.refs.username.value = '';
-
+        this.refs.username.value = '';
     }
 
     render(){
