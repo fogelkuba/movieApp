@@ -58451,14 +58451,14 @@ class News extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
 
 
-const API = 'http://api.tvmaze.com/singlesearch/shows?q=';
+const API = 'http://api.tvmaze.com/';
 
 class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
         super(props);
 
         this.searchProfile = query => {
-            let finalURL = `${API}/${query}`;
+            let finalURL = `${API}singlesearch/shows?q=${query}`;
 
             fetch(finalURL).then(res => res.json()).then(data => {
                 this.setState({
@@ -58505,7 +58505,11 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'search', ref: 'username', placeholder: 'type username and hit enter' })
                 )
             ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Results_jsx__["a" /* default */], { results: this.state.val })
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Results_jsx__["a" /* default */], {
+                name: this.state.name,
+                summary: this.state.summary,
+                avatar: this.state.avatar
+            })
         );
     }
 }
@@ -58519,19 +58523,39 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_reactstrap__ = __webpack_require__(165);
+
 
 
 class Results extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
         super(props);
+
+        this.addToCollection = () => {
+            //TO DO dodac wyszukany serial do kolekcji seriali
+            console.log('123');
+        };
+
         this.state = {};
     }
+
     render() {
-        console.log(this.state);
+        //console.log(this.state)
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             null,
-            this.props.results
+            'Search:',
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'h2',
+                null,
+                this.props.name
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'p',
+                null,
+                this.props.summary
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: this.props.avatar })
         );
     }
 }

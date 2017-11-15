@@ -1,7 +1,7 @@
 import React from 'react';
 import Results from './Results.jsx'
 
-const API = 'http://api.tvmaze.com/singlesearch/shows?q=';
+const API = 'http://api.tvmaze.com/';
 
 class Search extends React.Component {
     constructor(props){
@@ -16,7 +16,7 @@ class Search extends React.Component {
     }
 
     searchProfile = (query) => {
-        let finalURL = `${API}/${query}`;
+        let finalURL = `${API}singlesearch/shows?q=${query}`;
 
         fetch(finalURL)
         .then( (res) => res.json() )
@@ -50,7 +50,11 @@ class Search extends React.Component {
                 <form onSubmit={this.submitForm}>
                     <label><input type="search" ref="username" placeholder="type username and hit enter" /></label>
                 </form>
-                <Results results={this.state.val}/>
+                <Results
+                    name={this.state.name}
+                    summary={this.state.summary}
+                    avatar={this.state.avatar}
+                />
             </div>
         );
     }
