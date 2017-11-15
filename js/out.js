@@ -42069,7 +42069,8 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Navigation_jsx__["a" /* default */], {
                     userEmail: this.state.user.email,
                     logOut: this.logout }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Profile_jsx__["a" /* default */], { userData: this.state.user })
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Profile_jsx__["a" /* default */], {
+                    userData: this.state.user })
             );
         } else {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -58325,7 +58326,7 @@ exports.push([module.i, ".navbar {\n  background: lightgray;\n  margin-bottom: 1
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Search_jsx__ = __webpack_require__(379);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SearchBox_jsx__ = __webpack_require__(380);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Recent_jsx__ = __webpack_require__(376);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Upcoming_jsx__ = __webpack_require__(377);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__News_jsx__ = __webpack_require__(378);
@@ -58342,7 +58343,7 @@ class Profile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             'div',
             null,
             'Logged user profile.',
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Search_jsx__["a" /* default */], null),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__SearchBox_jsx__["a" /* default */], null),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Recent_jsx__["a" /* default */], null),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Upcoming_jsx__["a" /* default */], null),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__News_jsx__["a" /* default */], null)
@@ -58439,7 +58440,86 @@ class News extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 /* harmony default export */ __webpack_exports__["a"] = (News);
 
 /***/ }),
-/* 379 */
+/* 379 */,
+/* 380 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Results_jsx__ = __webpack_require__(381);
+
+
+
+const API = 'https://api.github.com/users';
+
+class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(props) {
+        super(props);
+
+        this.searchProfile = username => {
+            let finalURL = `${API}/${username}`;
+
+            fetch(finalURL).then(res => res.json()).then(data => {
+                this.setState({
+                    username: data.login,
+                    name: data.name,
+                    avatar: data.avatar_url,
+                    repos: data.public_repos,
+                    followers: data.followers,
+                    following: data.following,
+                    homeURL: data.html_url,
+                    notFound: data.message
+                });
+            }).catch(err => console.log(err));
+        };
+
+        this.submitForm = e => {
+            e.preventDefault();
+            let val = this.refs.username.value;
+            this.setState({
+                val: val
+            });
+            console.log('Value:' + val);
+            this.searchProfile(val);
+            //this.refs.username.value = '';
+        };
+
+        this.state = {
+            username: 'fogelkuba',
+            name: '',
+            avatar: '',
+            repos: '',
+            followers: '',
+            following: '',
+            homeURL: '',
+            notFound: ''
+        };
+    }
+
+    render() {
+        console.log("Upcoming: " + this.props.userData);
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'form',
+                { onSubmit: this.submitForm },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'label',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'search', ref: 'username', placeholder: 'type username and hit enter' })
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Results_jsx__["a" /* default */], { results: this.state.val })
+        );
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Search);
+
+/***/ }),
+/* 381 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -58447,27 +58527,21 @@ class News extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 
 
-class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+class Results extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
-    componentDidUpdate() {}
-    componentDidMount() {
-        console.log('didMount');
-    }
     render() {
-        console.log("Upcoming: " + this.props.userData);
+        console.log(this.state);
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             null,
-            'Search: ',
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { ref: 'search' })
+            this.props.results
         );
     }
 }
-
-/* harmony default export */ __webpack_exports__["a"] = (Search);
+/* harmony default export */ __webpack_exports__["a"] = (Results);
 
 /***/ })
 /******/ ]);

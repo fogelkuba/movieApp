@@ -1,5 +1,5 @@
 import React from 'react';
-import Search from './Search.jsx'
+import SearchBox from './SearchBox.jsx'
 import Recent from './Recent.jsx';
 import Upcoming from './Upcoming.jsx';
 import News from './News.jsx';
@@ -10,7 +10,8 @@ class Profile extends React.Component {
         return(
             <div>
                 Logged user profile.
-                <Search />
+
+                <SearchBox />
                 <Recent />
                 <Upcoming />
                 <News />

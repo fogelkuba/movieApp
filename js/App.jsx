@@ -49,7 +49,8 @@ class App extends React.Component {
                     <Navigation
                         userEmail={this.state.user.email}
                         logOut={this.logout} />
-                     <Profile userData={this.state.user} />
+                     <Profile
+                        userData={this.state.user} />
                 </div>
             )
         }else{
