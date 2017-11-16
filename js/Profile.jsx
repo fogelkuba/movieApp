@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchBox from './SearchBox.jsx'
+import Collection from './Collection.jsx'
 import Recent from './Recent.jsx';
 import Upcoming from './Upcoming.jsx';
 import News from './News.jsx';
@@ -9,9 +10,8 @@ class Profile extends React.Component {
         console.log("Profile: " + this.props.userData)
         return(
             <div>
-                Logged user profile.
-
-                <SearchBox />
+                <SearchBox userData={this.props.userData}/>
+                <Collection />
                 <Recent />
                 <Upcoming />
                 <News />

@@ -30,14 +30,12 @@ class App extends React.Component {
     }
     logout = () =>{
         fire.auth().signOut();
-
         var lout = document.querySelector('#logout');
         var msg = "Thanks for using our app"
         this.setState({
             msg: msg,
             user: null
         })
-        console.log('kliknieto wyloguj');
         lout.classList.add('hide');
         this.props.checklogin();
     };

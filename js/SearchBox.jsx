@@ -7,53 +7,55 @@ class Search extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            name: '',
-            avatar: '',
-            rating: '',
-            summary: '',
-            notFound: ''
+            show: {
+                image:{
+                    medium: ''
+                }
+            },
+            val: ''
         };
     }
 
-    searchProfile = (query) => {
+    searchQuery = (query) => {
         let finalURL = `${API}singlesearch/shows?q=${query}`;
-
         fetch(finalURL)
         .then( (res) => res.json() )
         .then( (data) => {
             this.setState({
-                name: data.name,
-                avatar: data.image.medium,
-                rating: data.rating.average,
-                summary: data.summary,
-                notFound: data.message
+                show: data,
             })
         })
-        .catch( (err) => console.log(err) )
+        .catch( (err) => {
+            console.log(err);
+            this.setState({
+                show: {
+                    name: 'Sorry :('
+                }
+            })
+        } )
     }
 
     submitForm = (e) => {
         e.preventDefault();
-        let val = this.refs.username.value;
+        let val = this.refs.query.value;
         this.setState({
             val: val
         });
-        console.log('Value:' + val);
-        this.searchProfile(val);
-        this.refs.username.value = '';
+        this.searchQuery(val);
+        this.refs.query.value = '';
     }
 
     render(){
         console.log("Upcoming: " + this.props.userData)
         return(
             <div>
+                Search:
                 <form onSubmit={this.submitForm}>
-                    <label><input type="search" ref="username" placeholder="type username and hit enter" /></label>
+                    <label><input type="search" ref="query" placeholder="type username and hit enter" /></label>
                 </form>
                 <Results
-                    name={this.state.name}
-                    summary={this.state.summary}
-                    avatar={this.state.avatar}
+                    userData={this.props.userData}
+                    show={this.state.show}
                 />
             </div>
         );

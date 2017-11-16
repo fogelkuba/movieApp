@@ -42045,14 +42045,12 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
         this.logout = () => {
             __WEBPACK_IMPORTED_MODULE_5__fire_jsx__["a" /* default */].auth().signOut();
-
             var lout = document.querySelector('#logout');
             var msg = "Thanks for using our app";
             this.setState({
                 msg: msg,
                 user: null
             });
-            console.log('kliknieto wyloguj');
             lout.classList.add('hide');
             this.props.checklogin();
         };
@@ -58327,9 +58325,11 @@ exports.push([module.i, ".navbar {\n  background: lightgray;\n  margin-bottom: 1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SearchBox_jsx__ = __webpack_require__(380);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Recent_jsx__ = __webpack_require__(376);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Upcoming_jsx__ = __webpack_require__(377);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__News_jsx__ = __webpack_require__(378);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Collection_jsx__ = __webpack_require__(382);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Recent_jsx__ = __webpack_require__(376);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Upcoming_jsx__ = __webpack_require__(377);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__News_jsx__ = __webpack_require__(378);
+
 
 
 
@@ -58342,11 +58342,11 @@ class Profile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             null,
-            'Logged user profile.',
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__SearchBox_jsx__["a" /* default */], null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Recent_jsx__["a" /* default */], null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Upcoming_jsx__["a" /* default */], null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__News_jsx__["a" /* default */], null)
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__SearchBox_jsx__["a" /* default */], { userData: this.props.userData }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Collection_jsx__["a" /* default */], null),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Recent_jsx__["a" /* default */], null),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Upcoming_jsx__["a" /* default */], null),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__News_jsx__["a" /* default */], null)
         );
     }
 }
@@ -58457,37 +58457,39 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
         super(props);
 
-        this.searchProfile = query => {
+        this.searchQuery = query => {
             let finalURL = `${API}singlesearch/shows?q=${query}`;
-
             fetch(finalURL).then(res => res.json()).then(data => {
                 this.setState({
-                    name: data.name,
-                    avatar: data.image.medium,
-                    rating: data.rating.average,
-                    summary: data.summary,
-                    notFound: data.message
+                    show: data
                 });
-            }).catch(err => console.log(err));
+            }).catch(err => {
+                console.log(err);
+                this.setState({
+                    show: {
+                        name: 'Sorry :('
+                    }
+                });
+            });
         };
 
         this.submitForm = e => {
             e.preventDefault();
-            let val = this.refs.username.value;
+            let val = this.refs.query.value;
             this.setState({
                 val: val
             });
-            console.log('Value:' + val);
-            this.searchProfile(val);
-            this.refs.username.value = '';
+            this.searchQuery(val);
+            this.refs.query.value = '';
         };
 
         this.state = {
-            name: '',
-            avatar: '',
-            rating: '',
-            summary: '',
-            notFound: ''
+            show: {
+                image: {
+                    medium: ''
+                }
+            },
+            val: ''
         };
     }
 
@@ -58496,19 +58498,19 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             null,
+            'Search:',
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'form',
                 { onSubmit: this.submitForm },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'label',
                     null,
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'search', ref: 'username', placeholder: 'type username and hit enter' })
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'search', ref: 'query', placeholder: 'type username and hit enter' })
                 )
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Results_jsx__["a" /* default */], {
-                name: this.state.name,
-                summary: this.state.summary,
-                avatar: this.state.avatar
+                userData: this.props.userData,
+                show: this.state.show
             })
         );
     }
@@ -58524,6 +58526,8 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_reactstrap__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fire_jsx__ = __webpack_require__(375);
+
 
 
 
@@ -58533,33 +58537,72 @@ class Results extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
         this.addToCollection = () => {
             //TO DO dodac wyszukany serial do kolekcji seriali
-            console.log('123');
+            __WEBPACK_IMPORTED_MODULE_2__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows').push({
+
+                showId: this.props.show.id,
+                showName: this.props.show.name
+
+            });
+            console.log('dodano do firebase: ' + this.props.show.id + ' ' + this.props.show.name);
         };
 
         this.state = {};
     }
 
     render() {
-        //console.log(this.state)
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             null,
-            'Search:',
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'h2',
                 null,
-                this.props.name
+                this.props.show.name
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'p',
                 null,
-                this.props.summary
+                this.props.show.summary
             ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: this.props.avatar })
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: this.props.show.image.medium }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
+                { onClick: this.addToCollection },
+                'Add'
+            )
         );
     }
 }
 /* harmony default export */ __webpack_exports__["a"] = (Results);
+
+/***/ }),
+/* 382 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fire_jsx__ = __webpack_require__(375);
+
+
+
+class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+    // TO DO POBIERANIE ID SERIALI -> przekształcanie ich na podlinkowane minatury-> item
+    // po kliknieciu pojawia sie widok serialu, tytul, opis daty, lista odcinkow
+    render() {
+        console.log("Collection: " + this.props.userData);
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            null,
+            'Collection'
+        );
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Collection);
 
 /***/ })
 /******/ ]);
