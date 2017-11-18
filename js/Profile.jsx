@@ -11,7 +11,7 @@ class Profile extends React.Component {
         return(
             <div>
                 <SearchBox userData={this.props.userData}/>
-                <Collection />
+                <Collection userData={this.props.userData} />
                 <Recent />
                 <Upcoming />
                 <News />

@@ -7,6 +7,7 @@ class Search extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            queryType: '',
             show: {
                 image:{
                     medium: ''
@@ -34,6 +35,12 @@ class Search extends React.Component {
             })
         } )
     }
+    componentDidMount(){
+        console.log(this.state.show);
+    }
+    componentDidUpdate(){
+        console.log( this.state.show);
+    }
 
     submitForm = (e) => {
         e.preventDefault();
@@ -53,6 +60,11 @@ class Search extends React.Component {
                 <form onSubmit={this.submitForm}>
                     <label><input type="search" ref="query" placeholder="type username and hit enter" /></label>
                 </form>
+                <select name='select' defaultValue="shows">
+                    <option value='shows' >Shows</option>
+                    <option value='genre'>Genre</option>
+                    <option value='person'>Person</option>
+                </select>
                 <Results
                     userData={this.props.userData}
                     show={this.state.show}

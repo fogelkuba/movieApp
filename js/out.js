@@ -58343,7 +58343,7 @@ class Profile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             'div',
             null,
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__SearchBox_jsx__["a" /* default */], { userData: this.props.userData }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Collection_jsx__["a" /* default */], null),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Collection_jsx__["a" /* default */], { userData: this.props.userData }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Recent_jsx__["a" /* default */], null),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Upcoming_jsx__["a" /* default */], null),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__News_jsx__["a" /* default */], null)
@@ -58484,6 +58484,7 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         };
 
         this.state = {
+            queryType: '',
             show: {
                 image: {
                     medium: ''
@@ -58491,6 +58492,13 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             },
             val: ''
         };
+    }
+
+    componentDidMount() {
+        console.log(this.state.show);
+    }
+    componentDidUpdate() {
+        console.log(this.state.show);
     }
 
     render() {
@@ -58506,6 +58514,25 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                     'label',
                     null,
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'search', ref: 'query', placeholder: 'type username and hit enter' })
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'select',
+                { name: 'select', defaultValue: 'shows' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    { value: 'shows' },
+                    'Shows'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    { value: 'genre' },
+                    'Genre'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    { value: 'person' },
+                    'Person'
                 )
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Results_jsx__["a" /* default */], {
@@ -58537,19 +58564,27 @@ class Results extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
         this.addToCollection = () => {
             //TO DO dodac wyszukany serial do kolekcji seriali
-            __WEBPACK_IMPORTED_MODULE_2__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows').push({
-
+            __WEBPACK_IMPORTED_MODULE_2__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.show.id).set({
                 showId: this.props.show.id,
                 showName: this.props.show.name
-
             });
             console.log('dodano do firebase: ' + this.props.show.id + ' ' + this.props.show.name);
         };
 
-        this.state = {};
+        this.state = {
+            summ: ''
+        };
     }
 
+    componentDidUpdate() {
+        if (this.props.show.summary == null) {
+            this.state.summ = ' ';
+        } else {
+            this.state.summ = this.props.show.summary;
+        }
+    }
     render() {
+        let summary = this.state.summ;
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             null,
@@ -58588,10 +58623,27 @@ class Results extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
         super(props);
+
+        this.getCollection = () => {
+            __WEBPACK_IMPORTED_MODULE_1__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/').on('value', snap => console.log(snap.val()));
+        };
+
+        this.componentDidMount = () => {
+            this.getCollection();
+            console.log('123');
+        };
+
+        this.componentDidUpdate = () => {
+            this.getCollection();
+            console.log('123');
+        };
+
         this.state = {};
     }
     // TO DO POBIERANIE ID SERIALI -> przekształcanie ich na podlinkowane minatury-> item
     // po kliknieciu pojawia sie widok serialu, tytul, opis daty, lista odcinkow
+
+
     render() {
         console.log("Collection: " + this.props.userData);
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
