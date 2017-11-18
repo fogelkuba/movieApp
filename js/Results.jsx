@@ -11,13 +11,21 @@ class Results extends React.Component {
     }
 
     addToCollection = () => {
-    //TO DO dodac wyszukany serial do kolekcji seriali
-        fire.database().ref('users/' + this.props.userData.uid + '/shows/'+this.props.show.id).set({
-                showId: this.props.show.id,
-                showName: this.props.show.name
-        })
-        console.log('dodano do firebase: ' + this.props.show.id + ' ' + this.props.show.name);
+        fire.database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.show.id)
+        .on('value', snap => {
+            var data = snap.val()
+            if (data !== null) {
+                console.log('juz dodano')
+            }else{
+                fire.database().ref('users/' + this.props.userData.uid + '/shows/'+ this.props.show.id).set({
+                        showId: this.props.show.id,
+                        showName: this.props.show.name
+                })
+                console.log('Added to Firebase: ' + this.props.show.id + ' ' + this.props.show.name);
+            }
+        });
     }
+
     componentDidUpdate(){
         if (this.props.show.summary == null) {
             this.state.summ = ' ';

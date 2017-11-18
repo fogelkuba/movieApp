@@ -16,11 +16,9 @@ class Collection extends React.Component {
 
     componentDidMount =() =>{
         this.getCollection();
-        console.log('123')
     }
     componentDidUpdate = () => {
         this.getCollection();
-        console.log('123')
     }
 
     render(){

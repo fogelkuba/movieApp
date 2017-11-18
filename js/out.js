@@ -58563,12 +58563,18 @@ class Results extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         super(props);
 
         this.addToCollection = () => {
-            //TO DO dodac wyszukany serial do kolekcji seriali
-            __WEBPACK_IMPORTED_MODULE_2__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.show.id).set({
-                showId: this.props.show.id,
-                showName: this.props.show.name
+            __WEBPACK_IMPORTED_MODULE_2__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.show.id).on('value', snap => {
+                var data = snap.val();
+                if (data !== null) {
+                    console.log('juz dodano');
+                } else {
+                    __WEBPACK_IMPORTED_MODULE_2__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.show.id).set({
+                        showId: this.props.show.id,
+                        showName: this.props.show.name
+                    });
+                    console.log('Added to Firebase: ' + this.props.show.id + ' ' + this.props.show.name);
+                }
             });
-            console.log('dodano do firebase: ' + this.props.show.id + ' ' + this.props.show.name);
         };
 
         this.state = {
@@ -58630,12 +58636,10 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
 
         this.componentDidMount = () => {
             this.getCollection();
-            console.log('123');
         };
 
         this.componentDidUpdate = () => {
             this.getCollection();
-            console.log('123');
         };
 
         this.state = {};
