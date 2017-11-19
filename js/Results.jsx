@@ -19,7 +19,8 @@ class Results extends React.Component {
             }else{
                 fire.database().ref('users/' + this.props.userData.uid + '/shows/'+ this.props.show.id).set({
                         showId: this.props.show.id,
-                        showName: this.props.show.name
+                        showName: this.props.show.name,
+                        picture: this.props.show.image
                 })
                 console.log('Added to Firebase: ' + this.props.show.id + ' ' + this.props.show.name);
             }
@@ -34,7 +35,6 @@ class Results extends React.Component {
         }
     }
     render(){
-        let summary = this.state.summ;
         return(
             <div>
                 <h2>{this.props.show.name}</h2>

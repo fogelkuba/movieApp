@@ -58099,7 +58099,7 @@ exports = module.exports = __webpack_require__(81)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: sans-serif; }\n", ""]);
+exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: sans-serif; }\n\nsection {\n  background: aliceblue;\n  margin: 5px; }\n", ""]);
 
 // exports
 
@@ -58329,6 +58329,8 @@ exports.push([module.i, ".navbar {\n  background: lightgray;\n  margin-bottom: 1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Recent_jsx__ = __webpack_require__(376);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Upcoming_jsx__ = __webpack_require__(377);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__News_jsx__ = __webpack_require__(378);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_reactstrap__ = __webpack_require__(165);
+
 
 
 
@@ -58342,11 +58344,15 @@ class Profile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             null,
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__SearchBox_jsx__["a" /* default */], { userData: this.props.userData }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Collection_jsx__["a" /* default */], { userData: this.props.userData }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Recent_jsx__["a" /* default */], null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Upcoming_jsx__["a" /* default */], null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__News_jsx__["a" /* default */], null)
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_6_reactstrap__["d" /* Container */],
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__SearchBox_jsx__["a" /* default */], { userData: this.props.userData }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Collection_jsx__["a" /* default */], { userData: this.props.userData }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Recent_jsx__["a" /* default */], null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Upcoming_jsx__["a" /* default */], null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__News_jsx__["a" /* default */], null)
+            )
         );
     }
 }
@@ -58386,7 +58392,7 @@ class Recent extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     render() {
         console.log("Recent: " + this.props.userData);
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "div",
+            "section",
             null,
             "Recent"
         );
@@ -58408,7 +58414,7 @@ class Upcoming extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     render() {
         console.log("Upcoming: " + this.props.userData);
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "div",
+            "section",
             null,
             "Upcoming"
         );
@@ -58430,7 +58436,7 @@ class News extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     render() {
         console.log("News: " + this.props.userData);
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "div",
+            "section",
             null,
             "News"
         );
@@ -58504,8 +58510,8 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     render() {
         console.log("Upcoming: " + this.props.userData);
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            null,
+            'section',
+            { className: 'search' },
             'Search:',
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'form',
@@ -58570,7 +58576,8 @@ class Results extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 } else {
                     __WEBPACK_IMPORTED_MODULE_2__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.show.id).set({
                         showId: this.props.show.id,
-                        showName: this.props.show.name
+                        showName: this.props.show.name,
+                        picture: this.props.show.image
                     });
                     console.log('Added to Firebase: ' + this.props.show.id + ' ' + this.props.show.name);
                 }
@@ -58590,7 +58597,6 @@ class Results extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         }
     }
     render() {
-        let summary = this.state.summ;
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             null,
@@ -58626,23 +58632,50 @@ class Results extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
 
 
+const imgThumbs = [];
+
 class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
         super(props);
 
         this.getCollection = () => {
-            __WEBPACK_IMPORTED_MODULE_1__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/').on('value', snap => console.log(snap.val()));
+            var data = [];
+            __WEBPACK_IMPORTED_MODULE_1__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/').on('value', snap => {
+                snap.forEach(item => {
+                    data.push(item.val());
+                });
+                console.log("data:");
+                console.log(data);
+                this.setState({
+                    items: data
+                });
+            });
         };
 
-        this.componentDidMount = () => {
+        this.componentWillMount = () => {
             this.getCollection();
         };
 
         this.componentDidUpdate = () => {
-            this.getCollection();
+            //this.getCollection();
         };
 
-        this.state = {};
+        this.collectionThumbnails = () => {
+            const list = this.state.items;
+            console.log("typeof:");
+            console.log(typeof list);
+            let thumbnails = list.forEach(item => {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'li',
+                    null,
+                    item.showName
+                );
+            });
+        };
+
+        this.state = {
+            items: []
+        };
     }
     // TO DO POBIERANIE ID SERIALI -> przekształcanie ich na podlinkowane minatury-> item
     // po kliknieciu pojawia sie widok serialu, tytul, opis daty, lista odcinkow
@@ -58650,10 +58683,16 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
 
     render() {
         console.log("Collection: " + this.props.userData);
+
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
+            'section',
             null,
-            'Collection'
+            'Collection:',
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'ul',
+                null,
+                this.collectionThumbnails
+            )
         );
     }
 }

@@ -4,9 +4,9 @@ class News extends React.Component {
     render(){
         console.log("News: " + this.props.userData)
         return(
-            <div>
+            <section>
                 News
-            </div>
+            </section>
         );
     }
 }

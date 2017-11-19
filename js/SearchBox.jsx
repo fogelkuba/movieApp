@@ -39,7 +39,7 @@ class Search extends React.Component {
         console.log(this.state.show);
     }
     componentDidUpdate(){
-        console.log( this.state.show);
+        console.log(this.state.show);
     }
 
     submitForm = (e) => {
@@ -55,7 +55,7 @@ class Search extends React.Component {
     render(){
         console.log("Upcoming: " + this.props.userData)
         return(
-            <div>
+            <section className="search">
                 Search:
                 <form onSubmit={this.submitForm}>
                     <label><input type="search" ref="query" placeholder="type username and hit enter" /></label>
@@ -69,7 +69,7 @@ class Search extends React.Component {
                     userData={this.props.userData}
                     show={this.state.show}
                 />
-            </div>
+        </section>
         );
     }
 }

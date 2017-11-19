@@ -4,9 +4,9 @@ class Recent extends React.Component {
     render(){
         console.log("Recent: " + this.props.userData)
         return(
-            <div>
+            <section>
                 Recent
-            </div>
+            </section>
         );
     }
 }

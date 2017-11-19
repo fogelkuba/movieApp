@@ -4,9 +4,9 @@ class Upcoming extends React.Component {
     render(){
         console.log("Upcoming: " + this.props.userData)
         return(
-            <div>
+            <section>
                 Upcoming
-            </div>
+            </section>
         );
     }
 }
