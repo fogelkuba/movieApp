@@ -35,12 +35,6 @@ class Search extends React.Component {
             })
         } )
     }
-    componentDidMount(){
-        console.log(this.state.show);
-    }
-    componentDidUpdate(){
-        console.log(this.state.show);
-    }
 
     submitForm = (e) => {
         e.preventDefault();
@@ -53,7 +47,7 @@ class Search extends React.Component {
     }
 
     render(){
-        console.log("Upcoming: " + this.props.userData)
+        // console.log("SearchBox " + this.props.userData)
         return(
             <section className="search">
                 Search:

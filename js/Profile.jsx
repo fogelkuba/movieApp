@@ -9,7 +9,7 @@ import { Container } from 'reactstrap';
 
 class Profile extends React.Component {
     render(){
-        console.log("Profile: " + this.props.userData)
+        // console.log("Profile: " + this.props.userData)
         return(
             <div>
                 <Container>

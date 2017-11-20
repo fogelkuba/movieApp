@@ -58099,7 +58099,7 @@ exports = module.exports = __webpack_require__(81)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: sans-serif; }\n\nsection {\n  background: aliceblue;\n  margin: 5px; }\n", ""]);
+exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Futura', sans-serif; }\n\nsection {\n  background: #f8f8f8;\n  margin: 5px; }\n", ""]);
 
 // exports
 
@@ -58340,7 +58340,7 @@ exports.push([module.i, ".navbar {\n  background: lightgray;\n  margin-bottom: 1
 
 class Profile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     render() {
-        console.log("Profile: " + this.props.userData);
+        // console.log("Profile: " + this.props.userData)
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             null,
@@ -58390,11 +58390,11 @@ var fire = __WEBPACK_IMPORTED_MODULE_0_firebase___default.a.initializeApp(config
 
 class Recent extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     render() {
-        console.log("Recent: " + this.props.userData);
+        // console.log("Recent: " + this.props.userData)
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "section",
+            'section',
             null,
-            "Recent"
+            'Recent'
         );
     }
 }
@@ -58412,11 +58412,11 @@ class Recent extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
 class Upcoming extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     render() {
-        console.log("Upcoming: " + this.props.userData);
+        // console.log("Upcoming: " + this.props.userData)
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "section",
+            'section',
             null,
-            "Upcoming"
+            'Upcoming'
         );
     }
 }
@@ -58434,11 +58434,11 @@ class Upcoming extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
 class News extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     render() {
-        console.log("News: " + this.props.userData);
+        // console.log("News: " + this.props.userData)
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "section",
+            'section',
             null,
-            "News"
+            'News'
         );
     }
 }
@@ -58500,15 +58500,8 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         };
     }
 
-    componentDidMount() {
-        console.log(this.state.show);
-    }
-    componentDidUpdate() {
-        console.log(this.state.show);
-    }
-
     render() {
-        console.log("Upcoming: " + this.props.userData);
+        // console.log("SearchBox " + this.props.userData)
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'section',
             { className: 'search' },
@@ -58577,7 +58570,7 @@ class Results extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                     __WEBPACK_IMPORTED_MODULE_2__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.show.id).set({
                         showId: this.props.show.id,
                         showName: this.props.show.name,
-                        picture: this.props.show.image
+                        picture: this.props.show.image.medium
                     });
                     console.log('Added to Firebase: ' + this.props.show.id + ' ' + this.props.show.name);
                 }
@@ -58596,6 +58589,7 @@ class Results extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             this.state.summ = this.props.show.summary;
         }
     }
+
     render() {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
@@ -58605,11 +58599,7 @@ class Results extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 null,
                 this.props.show.name
             ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'p',
-                null,
-                this.props.show.summary
-            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { dangerouslySetInnerHTML: { __html: this.props.show.summary } }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: this.props.show.image.medium }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
@@ -58629,10 +58619,13 @@ class Results extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fire_jsx__ = __webpack_require__(375);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Collection_scss__ = __webpack_require__(383);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Collection_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Collection_scss__);
 
 
 
-const imgThumbs = [];
+
 
 class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
@@ -58640,64 +58633,137 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
 
         this.getCollection = () => {
             var data = [];
+            this.setState({
+                items: []
+            });
+            console.log('data1:');
+            console.log(data);
+
             __WEBPACK_IMPORTED_MODULE_1__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/').on('value', snap => {
                 snap.forEach(item => {
                     data.push(item.val());
                 });
-                console.log("data:");
-                console.log(data);
                 this.setState({
                     items: data
                 });
             });
+
+            data = [];
+            console.log('data2');
+            console.log(data);
         };
 
         this.componentWillMount = () => {
+            this.setState({
+                items: []
+            });
             this.getCollection();
         };
 
-        this.componentDidUpdate = () => {
-            //this.getCollection();
-        };
-
-        this.collectionThumbnails = () => {
-            const list = this.state.items;
-            console.log("typeof:");
-            console.log(typeof list);
-            let thumbnails = list.forEach(item => {
-                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'li',
-                    null,
-                    item.showName
-                );
+        this.toggle = () => {
+            console.log('otwieram');
+            this.setState({
+                modal: !this.state.modal
             });
         };
 
+        this.getDetails = (id, detail) => {
+            console.log(id);
+            this.toggle();
+        };
+
         this.state = {
-            items: []
+            items: [],
+            modal: false
         };
     }
-    // TO DO POBIERANIE ID SERIALI -> przekształcanie ich na podlinkowane minatury-> item
-    // po kliknieciu pojawia sie widok serialu, tytul, opis daty, lista odcinkow
-
 
     render() {
-        console.log("Collection: " + this.props.userData);
+        console.log('render');
+        let thumbData = [];
+        console.log('thumbData1:');
+        console.log(thumbData);
+        thumbData = this.state.items;
+        console.log('thumbData2:');
+        console.log(thumbData);
 
+        let thumbnails = thumbData.map((item, i) => {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'li',
+                { key: i, id: item.showId,
+                    onClick: this.getDetails.bind(this, item.showId) },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: item.picture }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'h3',
+                        null,
+                        item.showName
+                    )
+                )
+            );
+        });
+
+        console.log('================================|');
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'section',
             null,
-            'Collection:',
+            'Your Collection:',
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'ul',
                 null,
-                this.collectionThumbnails
+                thumbnails
             )
         );
     }
 }
-
 /* harmony default export */ __webpack_exports__["a"] = (Collection);
+
+/***/ }),
+/* 383 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(384);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(82)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./Collection.scss", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./Collection.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 384 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(81)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "ul {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: nowrap;\n  overflow-x: scroll;\n  overflow-y: hidden;\n  padding: 0; }\n  ul li {\n    transition: 0.2s ease-in-out;\n    position: relative; }\n    ul li:hover {\n      cursor: pointer;\n      transform: scale(1.05); }\n    ul li h3 {\n      position: absolute;\n      bottom: 0;\n      width: 100%;\n      margin-bottom: 0;\n      padding: 20px 10px;\n      color: white;\n      font-weight: bold;\n      text-shadow: 0 0 2px black;\n      font-size: 1.25em; }\n    ul li div {\n      position: relative; }\n      ul li div:before {\n        content: '';\n        position: absolute;\n        background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.9) 90%);\n        width: 100%;\n        height: 100%; }\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);

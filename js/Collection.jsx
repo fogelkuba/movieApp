@@ -1,61 +1,92 @@
 import React from 'react';
 import fire from './fire.jsx';
-
-const imgThumbs = [];
+import {Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import './Collection.scss';
 
 class Collection extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            items: []
+            items: [],
+            modal: false
         };
     }
-    // TO DO POBIERANIE ID SERIALI -> przekształcanie ich na podlinkowane minatury-> item
-    // po kliknieciu pojawia sie widok serialu, tytul, opis daty, lista odcinkow
+
     getCollection = () =>{
         var data = [];
+        this.setState({
+            items: []
+        })
+        console.log('data1:')
+        console.log(data)
+
         fire.database().ref('users/' + this.props.userData.uid + '/shows/')
         .on('value', snap =>  {
            snap.forEach(item => {
               data.push(item.val());
            })
-           console.log("data:")
-           console.log(data);
            this.setState({
                items: data
            })
        })
+
+       data = [];
+       console.log('data2')
+       console.log(data)
     }
 
     componentWillMount =() =>{
+        this.setState({
+            items: []
+        })
         this.getCollection();
     }
-    componentDidUpdate = () => {
-        //this.getCollection();
+
+    toggle = () => {
+        console.log('otwieram')
+        this.setState({
+            modal: !this.state.modal
+        });
     }
-    collectionThumbnails = () => {
-        const list = this.state.items;
-        console.log("typeof:")
-        console.log(typeof list)
-        let thumbnails = list.forEach((item) => {
-            return <li >{item.showName}</li>
-        })
+
+    getDetails = (id ,detail) => {
+        console.log(id);
+        this.toggle();
     }
 
     render(){
-        console.log("Collection: " + this.props.userData)
+        console.log('render')
+        let thumbData = [];
+        console.log('thumbData1:')
+        console.log(thumbData)
+        thumbData = this.state.items
+        console.log('thumbData2:')
+        console.log(thumbData)
 
+
+
+        let thumbnails = thumbData.map((item, i) => {
+            return (
+                <li key={i} id={item.showId}
+                    onClick={this.getDetails.bind(this, item.showId)}>
+                    <div>
+                        <img src={item.picture}/>
+                        <h3>{item.showName}</h3>
+                    </div>
+                </li>
+            )
+        })
+
+        console.log('================================|')
         return(
             <section>
-                Collection:
+                Your Collection:
                 <ul>
-                    {/* {thumbnails} */}
-                    {this.collectionThumbnails}
+                    {thumbnails}
                 </ul>
-
             </section>
+
         );
     }
 }
-
 export default Collection;
