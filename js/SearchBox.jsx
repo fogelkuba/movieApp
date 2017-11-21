@@ -19,6 +19,7 @@ class Search extends React.Component {
 
     searchQuery = (query) => {
         let finalURL = `${API}singlesearch/shows?q=${query}`;
+
         fetch(finalURL)
         .then( (res) => res.json() )
         .then( (data) => {
@@ -45,7 +46,11 @@ class Search extends React.Component {
         this.searchQuery(val);
         this.refs.query.value = '';
     }
-
+    setSearch = (e) => {
+        setState({
+            searchType: e.target.value
+        })
+    }
     render(){
         // console.log("SearchBox " + this.props.userData)
         return(
@@ -54,7 +59,7 @@ class Search extends React.Component {
                 <form onSubmit={this.submitForm}>
                     <label><input type="search" ref="query" placeholder="type username and hit enter" /></label>
                 </form>
-                <select name='select' defaultValue="shows">
+                <select name='select' defaultValue="shows" onChange={this.setSearch}>
                     <option value='shows' >Shows</option>
                     <option value='genre'>Genre</option>
                     <option value='person'>Person</option>
