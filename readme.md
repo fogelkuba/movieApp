@@ -11,3 +11,8 @@ Now You won't miss any episode of your favourite show!
 - RestApi
 
 App is currently under development
+
+```
+webpack-dev-server --content-base build/
+npm run build
+```

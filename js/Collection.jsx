@@ -13,7 +13,6 @@ class Collection extends React.Component {
             episodes: [],
             modal: false,
             modalData: ''
-
         };
     }
 
@@ -46,11 +45,7 @@ class Collection extends React.Component {
 
     getDetails = (id ,detail) => {
         console.log(id);
-        // this.setState({
-        //     episodes: ''
-        // })
         let finalURL = `${API}shows/${id}`;
-        let showURL = `${API}shows/${id}/episodes`;
 
         fetch(finalURL)
         .then( (res) => res.json() )
@@ -70,6 +65,7 @@ class Collection extends React.Component {
                 }
             })
         } )
+        let showURL = `${API}shows/${id}/episodes`;
         fetch(showURL)
         .then( (results) => results.json() )
         .then( (data) => {
@@ -89,7 +85,6 @@ class Collection extends React.Component {
     }
 
     render(){
-
         var data = [];
         fire.database().ref('users/' + this.props.userData.uid + '/shows/')
         .on('value', snap =>  {
@@ -110,15 +105,15 @@ class Collection extends React.Component {
             )
         })
 
-
         console.log(this.state.episodes);
         var episodesList = this.state.episodes;
+
         let episodes = episodesList.map((item, i) => {
             return (
                 <li key={i}>
                     <h4>{item.name}</h4>
-                    <span>Season: {item.season} Episode: {item.episode}</span>
-                    <p>{item.summary}</p>
+                    <span>Season: {item.season} Episode: {item.number}</span>
+                    <div dangerouslySetInnerHTML={{__html: item.summary}}></div>
                     <hr />
                 </li>
 
@@ -142,7 +137,6 @@ class Collection extends React.Component {
                         <p>Duration: {this.state.modalData.runtime}min</p>
                         <p>Rating: </p>
                         <p>Network: </p>
-
                         <div dangerouslySetInnerHTML={{__html: this.state.modalData.summary}}></div>
                         <ul>
                             {episodes}
