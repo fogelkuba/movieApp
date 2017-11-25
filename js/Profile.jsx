@@ -15,8 +15,8 @@ class Profile extends React.Component {
                 <Container>
                     <SearchBox userData={this.props.userData}/>
                     <Collection userData={this.props.userData} />
-                    <Recent />
-                    <Upcoming />
+                    <Recent userData={this.props.userData}/>
+                    <Upcoming userData={this.props.userData}/>
                     <News />
                 </Container>
             </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import fire from './fire.jsx';
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import './Collection.scss';
+import ListItem from './ListItem.jsx';
 const API = 'http://api.tvmaze.com/';
 var get = require('lodash');
 
@@ -104,19 +105,12 @@ class Collection extends React.Component {
                 </li>
             )
         })
-
-        console.log(this.state.episodes);
+        // console.log(this.state.episodes);
         var episodesList = this.state.episodes;
 
         let episodes = episodesList.map((item, i) => {
             return (
-                <li key={i}>
-                    <h4>{item.name}</h4>
-                    <span>Season: {item.season} Episode: {item.number}</span>
-                    <div dangerouslySetInnerHTML={{__html: item.summary}}></div>
-                    <hr />
-                </li>
-
+                <ListItem key={i} item={item}/>
             )
         })
         console.log('episodeslist:'+ episodesList.length)
@@ -126,7 +120,6 @@ class Collection extends React.Component {
                 <ul className="list-thumbs">
                     {thumbnails}
                 </ul>
-
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>
                         {this.state.modalData.name}
@@ -135,8 +128,6 @@ class Collection extends React.Component {
                         <p>Status: {this.state.modalData.status}</p>
                         <p>Premiered: {this.state.modalData.premiered}</p>
                         <p>Duration: {this.state.modalData.runtime}min</p>
-                        <p>Rating: </p>
-                        <p>Network: </p>
                         <div dangerouslySetInnerHTML={{__html: this.state.modalData.summary}}></div>
                         <ul>
                             {episodes}

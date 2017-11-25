@@ -5,7 +5,10 @@ class Recent extends React.Component {
         // console.log("Recent: " + this.props.userData)
         return(
             <section>
-                Recent
+                Recent:
+                <ul className="list-thumbs">
+                    
+                </ul>
             </section>
         );
     }

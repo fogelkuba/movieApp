@@ -1,0 +1,15 @@
+.button-add{
+    &:hover{
+        background: green;
+    }
+}
+.button-remove{
+    &:hover{
+        background: darken(red, 20);
+    }
+}
+.button-clear{
+    &:hover{
+        background: darken(yellow, 15);
+    }
+}

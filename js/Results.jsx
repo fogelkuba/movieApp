@@ -1,6 +1,7 @@
 import React from 'react';
-import {Button } from 'reactstrap';
+import {Button, Row, Col} from 'reactstrap';
 import fire from './fire.jsx';
+import './Results.scss';
 
 class Results extends React.Component {
     constructor(props){
@@ -26,6 +27,9 @@ class Results extends React.Component {
             }
         });
     }
+    removeFromCollection = () => {
+        fire.database().ref('users/' + this.props.userData.uid + '/shows/'+ this.props.show.id).remove();
+    }
 
     componentDidUpdate(){
         if (this.props.show.summary == null) {
@@ -34,15 +38,24 @@ class Results extends React.Component {
             this.state.summ = this.props.show.summary;
         }
     }
-    
+
     render(){
         return(
-            <div>
-                <h2>{this.props.show.name}</h2>
-                <div dangerouslySetInnerHTML={{__html: this.props.show.summary}}></div>
-                <img src={this.props.show.image.medium}/>
-                <Button onClick={this.addToCollection}>Add</Button>
-            </div>
+            <Row>
+                <Col sm="12" md="4" lg="3">
+                    <img src={this.props.show.image.medium}/>
+                </Col>
+                <Col>
+                    <h2>{this.props.show.name}</h2>
+                    <div dangerouslySetInnerHTML={{__html: this.props.show.summary}}></div>
+                    <Button className="button-add" onClick={this.addToCollection}>Add</Button>
+                    <Button className="button-remove" onClick={this.removeFromCollection}>Remove</Button>
+                    <Button className="button-clear" onClick={this.props.clear}>Clear Search</Button>
+                </Col>
+
+
+
+            </Row>
         );
     }
 }

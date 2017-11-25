@@ -5,7 +5,10 @@ class Upcoming extends React.Component {
         // console.log("Upcoming: " + this.props.userData)
         return(
             <section>
-                Upcoming
+                Upcoming:
+                <ul className="list-thumbs">
+
+                </ul>
             </section>
         );
     }

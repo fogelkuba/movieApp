@@ -51,8 +51,26 @@ class Search extends React.Component {
             searchType: e.target.value
         })
     }
+    clear = (e) => {
+        e.preventDefault();
+        this.setState({
+            queryType: '',
+            show: {
+                image:{
+                    medium: ''
+                }
+            },
+            val: ''
+        })
+    }
     render(){
-        // console.log("SearchBox " + this.props.userData)
+        var result;
+        if (this.state.val !== '') {
+            console.log('val: true')
+            result = <Results userData={this.props.userData} show={this.state.show} clear={this.clear}/>
+        }else{
+            result = '';
+        }
         return(
             <section className="search">
                 Search:
@@ -64,10 +82,7 @@ class Search extends React.Component {
                     <option value='genre'>Genre</option>
                     <option value='person'>Person</option>
                 </select>
-                <Results
-                    userData={this.props.userData}
-                    show={this.state.show}
-                />
+                {result}
         </section>
         );
     }
