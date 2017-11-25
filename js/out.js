@@ -58214,17 +58214,13 @@ class Profile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     render() {
         // console.log("Profile: " + this.props.userData)
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
+            __WEBPACK_IMPORTED_MODULE_6_reactstrap__["g" /* Container */],
             null,
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_6_reactstrap__["g" /* Container */],
-                null,
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__SearchBox_jsx__["a" /* default */], { userData: this.props.userData }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Collection_jsx__["a" /* default */], { userData: this.props.userData }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Recent_jsx__["a" /* default */], { userData: this.props.userData }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Upcoming_jsx__["a" /* default */], { userData: this.props.userData }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__News_jsx__["a" /* default */], null)
-            )
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__SearchBox_jsx__["a" /* default */], { userData: this.props.userData }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Collection_jsx__["a" /* default */], { userData: this.props.userData }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Recent_jsx__["a" /* default */], { userData: this.props.userData }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Upcoming_jsx__["a" /* default */], { userData: this.props.userData }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__News_jsx__["a" /* default */], null)
         );
     }
 }
@@ -58469,6 +58465,7 @@ class Results extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Collection_scss__ = __webpack_require__(376);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Collection_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Collection_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__EpisodesList_jsx__ = __webpack_require__(392);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ModalData_jsx__ = __webpack_require__(393);
 
 
 
@@ -58507,15 +58504,11 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
             });
         };
 
-        this.toggleCollapse = () => {
-            this.setState({
-                collapse: !this.state.collapse
-            });
-        };
-
         this.getDetails = (id, detail) => {
             console.log(id);
-
+            this.setState({
+                id: id
+            });
             //fetching general info
             let generalURL = `${API}shows/${id}`;
             fetch(generalURL).then(res => res.json()).then(data => {
@@ -58556,9 +58549,18 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
             seasons: [],
             episodes: [],
             modal: false,
-            collapse: false
+            collapse: false,
+            id: ''
         };
     }
+
+    //===============================================
+
+    // toggleCollapse = () => {
+    //     this.setState({
+    //         collapse: !this.state.collapse
+    //     });
+    // }
 
     render() {
         var data = [];
@@ -58586,32 +58588,21 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
             );
         });
 
-        var seasonList = this.state.seasons;
-        let seasons = seasonList.map((item, i) => {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'ul',
-                { key: i },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_2_reactstrap__["b" /* Button */],
-                    { onClick: this.toggleCollapse },
-                    ' Season: ',
-                    item.number
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_2_reactstrap__["f" /* Collapse */],
-                    { isOpen: this.state.collapse },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        __WEBPACK_IMPORTED_MODULE_2_reactstrap__["c" /* Card */],
-                        null,
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            __WEBPACK_IMPORTED_MODULE_2_reactstrap__["d" /* CardBody */],
-                            null,
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__EpisodesList_jsx__["a" /* default */], { item: item })
-                        )
-                    )
-                )
-            );
-        });
+        // var seasonList = this.state.seasons;
+        // let seasons = seasonList.map((item, i) =>{
+        //     return(
+        //         <ul key={i}>
+        //             <Button onClick={this.toggleCollapse}> Season: {item.number}</Button>
+        //             <Collapse isOpen={this.state.collapse}>
+        //                 <Card>
+        //                     <CardBody>
+        //                         <EpisodesList item={item}/>
+        //                     </CardBody>
+        //                 </Card>
+        //             </Collapse>
+        //         </ul>
+        //     )
+        // })
 
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'section',
@@ -58622,63 +58613,35 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
                 { className: 'list-thumbs' },
                 thumbnails
             ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_2_reactstrap__["h" /* Modal */],
-                { isOpen: this.state.modal, toggle: this.toggle, className: this.props.className },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_2_reactstrap__["k" /* ModalHeader */],
-                    { toggle: this.toggle },
-                    this.state.modalData.name
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_2_reactstrap__["i" /* ModalBody */],
-                    null,
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'p',
-                        null,
-                        'Status: ',
-                        this.state.modalData.status
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'p',
-                        null,
-                        'Premiered: ',
-                        this.state.modalData.premiered
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'p',
-                        null,
-                        'Duration: ',
-                        this.state.modalData.runtime,
-                        'min'
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { dangerouslySetInnerHTML: { __html: this.state.modalData.summary } }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'ul',
-                        null,
-                        seasons
-                    )
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_2_reactstrap__["j" /* ModalFooter */],
-                    null,
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        __WEBPACK_IMPORTED_MODULE_2_reactstrap__["b" /* Button */],
-                        { color: 'primary', onClick: this.toggle },
-                        'Do Something'
-                    ),
-                    ' ',
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        __WEBPACK_IMPORTED_MODULE_2_reactstrap__["b" /* Button */],
-                        { color: 'secondary', onClick: this.toggle },
-                        'Cancel'
-                    )
-                )
-            )
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__ModalData_jsx__["a" /* default */], {
+                modalData: this.state.modalData,
+                seasons: this.state.seasons,
+                id: this.state.id,
+                toggle: this.toggle,
+                modal: this.state.modal })
         );
     }
 }
 /* harmony default export */ __webpack_exports__["a"] = (Collection);
+
+//     {<Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+// <ModalHeader toggle={this.toggle}>
+//     {this.state.modalData.name}
+// </ModalHeader>
+// <ModalBody>
+//     <p>Status: {this.state.modalData.status}</p>
+//     <p>Premiered: {this.state.modalData.premiered}</p>
+//     <p>Duration: {this.state.modalData.runtime}min</p>
+//     <div dangerouslySetInnerHTML={{__html: this.state.modalData.summary}}></div>
+//     <ul>
+//         {seasons}
+//     </ul>
+// </ModalBody>
+// <ModalFooter>
+//     <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
+//     <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+// </ModalFooter>
+// </Modal>}
 
 /***/ }),
 /* 376 */
@@ -59121,6 +59084,165 @@ class EpisodesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (EpisodesList);
+
+/***/ }),
+/* 393 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fire_jsx__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__EpisodesList_jsx__ = __webpack_require__(392);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Season_jsx__ = __webpack_require__(394);
+
+
+
+const API = 'http://api.tvmaze.com/';
+
+
+
+class ModalData extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            items: [],
+            modalData: '',
+            seasons: [],
+            episodes: [],
+            collapse: false
+        };
+    }
+
+    // toggleCollapse = () => {
+    //     this.setState({
+    //         collapse: !this.state.collapse
+    //     });
+    // }
+
+    render() {
+        var seasonList = this.props.seasons;
+        let seasons = seasonList.map((item, i) => {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Season_jsx__["a" /* default */], { key: i, item: item });
+        });
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_2_reactstrap__["h" /* Modal */],
+            { isOpen: this.props.modal, toggle: this.props.toggle, className: this.props.className },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_2_reactstrap__["k" /* ModalHeader */],
+                { toggle: this.props.toggle },
+                this.props.modalData.name
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_2_reactstrap__["i" /* ModalBody */],
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'p',
+                    null,
+                    'Status: ',
+                    this.props.modalData.status
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'p',
+                    null,
+                    'Premiered: ',
+                    this.props.modalData.premiered
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'p',
+                    null,
+                    'Duration: ',
+                    this.props.modalData.runtime,
+                    'min'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { dangerouslySetInnerHTML: { __html: this.props.modalData.summary } }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'ul',
+                    null,
+                    seasons
+                )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_2_reactstrap__["j" /* ModalFooter */],
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_2_reactstrap__["b" /* Button */],
+                    { color: 'primary', onClick: this.props.toggle },
+                    'Do Something'
+                ),
+                ' ',
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_2_reactstrap__["b" /* Button */],
+                    { color: 'secondary', onClick: this.props.toggle },
+                    'Cancel'
+                )
+            )
+        );
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (ModalData);
+
+/***/ }),
+/* 394 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fire_jsx__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__EpisodesList_jsx__ = __webpack_require__(392);
+
+
+
+const API = 'http://api.tvmaze.com/';
+
+
+class Season extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(props) {
+        super(props);
+
+        this.toggle = () => {
+            this.setState({
+                collapse: !this.state.collapse
+            });
+        };
+
+        this.state = {
+            collapse: false
+        };
+    }
+
+    render() {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'ul',
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_2_reactstrap__["b" /* Button */],
+                { onClick: this.toggle },
+                'Season: ',
+                this.props.item.number
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_2_reactstrap__["f" /* Collapse */],
+                { isOpen: this.state.collapse },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_2_reactstrap__["c" /* Card */],
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        __WEBPACK_IMPORTED_MODULE_2_reactstrap__["d" /* CardBody */],
+                        null,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__EpisodesList_jsx__["a" /* default */], { item: this.props.item })
+                    )
+                )
+            )
+        );
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Season);
 
 /***/ })
 /******/ ]);

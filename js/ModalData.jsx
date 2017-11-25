@@ -1,7 +1,9 @@
 import React from 'react';
 import fire from './fire.jsx';
-import { Button, Collapse, CardBody, Card} from 'reactstrap';
+import {Modal, ModalHeader, ModalBody, ModalFooter, Button, Collapse, CardBody, Card } from 'reactstrap';
 const API = 'http://api.tvmaze.com/';
+import EpisodesList from './EpisodesList.jsx';
+import Season from './Season.jsx';
 
 class ModalData extends React.Component {
     constructor(props){
@@ -11,88 +13,40 @@ class ModalData extends React.Component {
             modalData: '',
             seasons: [],
             episodes: [],
-            modal: false
+            collapse: false,
         };
     }
 
-    toggle = () => {
-        this.setState({ modal: !this.state.collapse });
-    }
-
-    getDetails = (id ,detail) => {
-        console.log(id);
-
-        //fetching general info
-        let generalURL = `${API}shows/${id}`;
-        fetch(generalURL)
-        .then( (res) => res.json() )
-        .then( (data) => {
-            this.setState({
-                modalData: data,
-            });
-        })
-        .catch( (err) => {
-            console.log(err);
-            this.setState({
-                modalData: {
-                    name: 'Sorry :(',
-                    status: 'Something went wrong. Please refresh app'
-                }
-            })
-        } )
-
-        //fetching seasons
-        let seasonURL = `${API}shows/${id}/seasons`;
-        fetch(seasonURL)
-        .then( (res) => res.json() )
-        .then( (data) => {
-            this.setState({
-                seasons: data
-            });
-        })
-        .catch( (err) => {
-            console.log(err);
-            this.setState({
-                modalData: {
-                    seasons: 'Sorry no seasons were found :('
-
-                }
-            })
-        } )
-
-        this.toggle();
-    }
+    // toggleCollapse = () => {
+    //     this.setState({
+    //         collapse: !this.state.collapse
+    //     });
+    // }
 
     render(){
-        var seasonList = this.state.seasons;
+        var seasonList = this.props.seasons;
         let seasons = seasonList.map((item, i) =>{
             return(
-                <ul key={i}>
-                    <h2>
-                        Season: {item.number}
-                    </h2>
-                    <EpisodesList item={item}/>
-                </ul>
+                <Season key={i} item={item} />
             )
         })
-
         return(
-            <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                <ModalHeader toggle={this.toggle}>
-                    {this.state.modalData.name}
+            <Modal isOpen={this.props.modal} toggle={this.props.toggle} className={this.props.className}>
+                <ModalHeader toggle={this.props.toggle}>
+                    {this.props.modalData.name}
                 </ModalHeader>
                 <ModalBody>
-                    <p>Status: {this.state.modalData.status}</p>
-                    <p>Premiered: {this.state.modalData.premiered}</p>
-                    <p>Duration: {this.state.modalData.runtime}min</p>
-                    <div dangerouslySetInnerHTML={{__html: this.state.modalData.summary}}></div>
+                    <p>Status: {this.props.modalData.status}</p>
+                    <p>Premiered: {this.props.modalData.premiered}</p>
+                    <p>Duration: {this.props.modalData.runtime}min</p>
+                    <div dangerouslySetInnerHTML={{__html: this.props.modalData.summary}}></div>
                     <ul>
                         {seasons}
                     </ul>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                    <Button color="primary" onClick={this.props.toggle}>Do Something</Button>{' '}
+                    <Button color="secondary" onClick={this.props.toggle}>Cancel</Button>
                 </ModalFooter>
             </Modal>
         );

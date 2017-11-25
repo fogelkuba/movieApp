@@ -11,15 +11,13 @@ class Profile extends React.Component {
     render(){
         // console.log("Profile: " + this.props.userData)
         return(
-            <div>
-                <Container>
-                    <SearchBox userData={this.props.userData}/>
-                    <Collection userData={this.props.userData} />
-                    <Recent userData={this.props.userData}/>
-                    <Upcoming userData={this.props.userData}/>
-                    <News />
-                </Container>
-            </div>
+            <Container>
+                <SearchBox userData={this.props.userData}/>
+                <Collection userData={this.props.userData} />
+                <Recent userData={this.props.userData}/>
+                <Upcoming userData={this.props.userData}/>
+                <News />
+            </Container>
         );
     }
 }

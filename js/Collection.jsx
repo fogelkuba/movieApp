@@ -3,7 +3,7 @@ import fire from './fire.jsx';
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button, Collapse, CardBody, Card } from 'reactstrap';
 import './Collection.scss';
 import EpisodesList from './EpisodesList.jsx';
-
+import ModalData from './ModalData.jsx';
 const API = 'http://api.tvmaze.com/';
 
 class Collection extends React.Component {
@@ -15,7 +15,8 @@ class Collection extends React.Component {
             seasons: [],
             episodes: [],
             modal: false,
-            collapse: false
+            collapse: false,
+            id: ''
         };
     }
 
@@ -45,15 +46,20 @@ class Collection extends React.Component {
             modal: !this.state.modal
         });
     }
-    toggleCollapse = () => {
-        this.setState({
-            collapse: !this.state.collapse
-        });
-    }
+
+    //===============================================
+
+    // toggleCollapse = () => {
+    //     this.setState({
+    //         collapse: !this.state.collapse
+    //     });
+    // }
 
     getDetails = (id ,detail) => {
         console.log(id);
-
+        this.setState({
+            id: id
+        })
         //fetching general info
         let generalURL = `${API}shows/${id}`;
         fetch(generalURL)
@@ -115,21 +121,21 @@ class Collection extends React.Component {
             )
         })
 
-        var seasonList = this.state.seasons;
-        let seasons = seasonList.map((item, i) =>{
-            return(
-                <ul key={i}>
-                    <Button onClick={this.toggleCollapse}> Season: {item.number}</Button>
-                    <Collapse isOpen={this.state.collapse}>
-                        <Card>
-                            <CardBody>
-                                <EpisodesList item={item}/>
-                            </CardBody>
-                        </Card>
-                    </Collapse>
-                </ul>
-            )
-        })
+        // var seasonList = this.state.seasons;
+        // let seasons = seasonList.map((item, i) =>{
+        //     return(
+        //         <ul key={i}>
+        //             <Button onClick={this.toggleCollapse}> Season: {item.number}</Button>
+        //             <Collapse isOpen={this.state.collapse}>
+        //                 <Card>
+        //                     <CardBody>
+        //                         <EpisodesList item={item}/>
+        //                     </CardBody>
+        //                 </Card>
+        //             </Collapse>
+        //         </ul>
+        //     )
+        // })
 
         return(
             <section>
@@ -138,28 +144,34 @@ class Collection extends React.Component {
                     {thumbnails}
                 </ul>
 
-                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}>
-                        {this.state.modalData.name}
-                    </ModalHeader>
-                    <ModalBody>
-                        <p>Status: {this.state.modalData.status}</p>
-                        <p>Premiered: {this.state.modalData.premiered}</p>
-                        <p>Duration: {this.state.modalData.runtime}min</p>
-                        <div dangerouslySetInnerHTML={{__html: this.state.modalData.summary}}></div>
-                        <ul>
-                            {seasons}
-                        </ul>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                    </ModalFooter>
-                </Modal>
-
+                <ModalData
+                    modalData={this.state.modalData}
+                    seasons={this.state.seasons}
+                    id={this.state.id}
+                    toggle={this.toggle}
+                    modal={this.state.modal} />
             </section>
-
         );
     }
 }
 export default Collection;
+
+
+    //     {<Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+    // <ModalHeader toggle={this.toggle}>
+    //     {this.state.modalData.name}
+    // </ModalHeader>
+    // <ModalBody>
+    //     <p>Status: {this.state.modalData.status}</p>
+    //     <p>Premiered: {this.state.modalData.premiered}</p>
+    //     <p>Duration: {this.state.modalData.runtime}min</p>
+    //     <div dangerouslySetInnerHTML={{__html: this.state.modalData.summary}}></div>
+    //     <ul>
+    //         {seasons}
+    //     </ul>
+    // </ModalBody>
+    // <ModalFooter>
+    //     <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
+    //     <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+    // </ModalFooter>
+    // </Modal>}
