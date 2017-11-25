@@ -24,6 +24,7 @@ class Collection extends React.Component {
            snap.forEach(item => {
               data.push(item.val());
            })
+           
            this.setState({
                items: data
            })
@@ -54,8 +55,6 @@ class Collection extends React.Component {
             this.setState({
                 modalData: data,
             });
-            //doesn't work
-            // let network = data.network.name;
         })
         .catch( (err) => {
             console.log(err);
@@ -105,9 +104,8 @@ class Collection extends React.Component {
                 </li>
             )
         })
-        // console.log(this.state.episodes);
-        var episodesList = this.state.episodes;
 
+        var episodesList = this.state.episodes;
         let episodes = episodesList.map((item, i) => {
             return (
                 <ListItem key={i} item={item}/>

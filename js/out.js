@@ -58239,6 +58239,7 @@ class Profile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Results_jsx__ = __webpack_require__(374);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(34);
 
 
 
@@ -58318,31 +58319,43 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             { className: 'search' },
             'Search:',
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'form',
-                { onSubmit: this.submitForm },
+                __WEBPACK_IMPORTED_MODULE_2_reactstrap__["o" /* Row */],
+                null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'label',
-                    null,
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'search', ref: 'query', placeholder: 'type username and hit enter' })
-                )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'select',
-                { name: 'select', defaultValue: 'shows', onChange: this.setSearch },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'option',
-                    { value: 'shows' },
-                    'Shows'
+                    __WEBPACK_IMPORTED_MODULE_2_reactstrap__["e" /* Col */],
+                    { md: '9' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'form',
+                        { onSubmit: this.submitForm },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'label',
+                            null,
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'search', ref: 'query', placeholder: 'type username and hit enter' })
+                        )
+                    )
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'option',
-                    { value: 'genre' },
-                    'Genre'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'option',
-                    { value: 'person' },
-                    'Person'
+                    __WEBPACK_IMPORTED_MODULE_2_reactstrap__["e" /* Col */],
+                    { md: '3' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'select',
+                        { name: 'select', defaultValue: 'shows', onChange: this.setSearch },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'option',
+                            { value: 'shows' },
+                            'Shows'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'option',
+                            { value: 'genre' },
+                            'Genre'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'option',
+                            { value: 'person' },
+                            'Person'
+                        )
+                    )
                 )
             ),
             result
@@ -58474,6 +58487,7 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
                 snap.forEach(item => {
                     data.push(item.val());
                 });
+
                 this.setState({
                     items: data
                 });
@@ -58502,8 +58516,6 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
                 this.setState({
                     modalData: data
                 });
-                //doesn't work
-                // let network = data.network.name;
             }).catch(err => {
                 console.log(err);
                 this.setState({
@@ -58562,9 +58574,8 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
                 )
             );
         });
-        // console.log(this.state.episodes);
-        var episodesList = this.state.episodes;
 
+        var episodesList = this.state.episodes;
         let episodes = episodesList.map((item, i) => {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__ListItem_jsx__["a" /* default */], { key: i, item: item });
         });

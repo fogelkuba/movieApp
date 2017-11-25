@@ -1,6 +1,6 @@
 import React from 'react';
 import Results from './Results.jsx'
-
+import { Row, Col} from 'reactstrap';
 const API = 'http://api.tvmaze.com/';
 
 class Search extends React.Component {
@@ -36,7 +36,6 @@ class Search extends React.Component {
             })
         } )
     }
-
     submitForm = (e) => {
         e.preventDefault();
         let val = this.refs.query.value;
@@ -74,14 +73,20 @@ class Search extends React.Component {
         return(
             <section className="search">
                 Search:
-                <form onSubmit={this.submitForm}>
-                    <label><input type="search" ref="query" placeholder="type username and hit enter" /></label>
-                </form>
-                <select name='select' defaultValue="shows" onChange={this.setSearch}>
-                    <option value='shows' >Shows</option>
-                    <option value='genre'>Genre</option>
-                    <option value='person'>Person</option>
-                </select>
+                <Row>
+                    <Col md="9">
+                        <form onSubmit={this.submitForm}>
+                            <label><input type="search" ref="query" placeholder="type username and hit enter" /></label>
+                        </form>
+                    </Col>
+                    <Col md="3">
+                        <select name='select' defaultValue="shows" onChange={this.setSearch}>
+                            <option value='shows' >Shows</option>
+                            <option value='genre'>Genre</option>
+                            <option value='person'>Person</option>
+                        </select>
+                    </Col>
+                </Row>
                 {result}
         </section>
         );
