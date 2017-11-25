@@ -2,18 +2,20 @@ import React from 'react';
 import fire from './fire.jsx';
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import './Collection.scss';
-import ListItem from './ListItem.jsx';
-const API = 'http://api.tvmaze.com/';
+
+import EpisodesList from './EpisodesList.jsx';
 var get = require('lodash');
+const API = 'http://api.tvmaze.com/';
 
 class Collection extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             items: [],
+            modalData: '',
+            seasons: [],
             episodes: [],
-            modal: false,
-            modalData: ''
+            modal: false
         };
     }
 
@@ -24,7 +26,6 @@ class Collection extends React.Component {
            snap.forEach(item => {
               data.push(item.val());
            })
-           
            this.setState({
                items: data
            })
@@ -47,9 +48,10 @@ class Collection extends React.Component {
 
     getDetails = (id ,detail) => {
         console.log(id);
-        let finalURL = `${API}shows/${id}`;
 
-        fetch(finalURL)
+        //fetching general info
+        let generalURL = `${API}shows/${id}`;
+        fetch(generalURL)
         .then( (res) => res.json() )
         .then( (data) => {
             this.setState({
@@ -65,6 +67,27 @@ class Collection extends React.Component {
                 }
             })
         } )
+
+        //fetching seasons
+        let seasonURL = `${API}shows/${id}/seasons`;
+        fetch(seasonURL)
+        .then( (res) => res.json() )
+        .then( (data) => {
+            this.setState({
+                seasons: data
+            });
+        })
+        .catch( (err) => {
+            console.log(err);
+            this.setState({
+                modalData: {
+                    seasons: 'Sorry no seasons were found :('
+
+                }
+            })
+        } )
+
+        //fetching episode list
         let showURL = `${API}shows/${id}/episodes`;
         fetch(showURL)
         .then( (results) => results.json() )
@@ -105,13 +128,27 @@ class Collection extends React.Component {
             )
         })
 
-        var episodesList = this.state.episodes;
-        let episodes = episodesList.map((item, i) => {
-            return (
-                <ListItem key={i} item={item}/>
+        var seasonList = this.state.seasons;
+        let seasons = seasonList.map((item, i) =>{
+            return(
+                <ul key={i}>
+                    <h2>
+                        Season: {item.number}
+                    </h2>
+                    <EpisodesList item={item}/>
+                </ul>
             )
         })
-        console.log('episodeslist:'+ episodesList.length)
+
+
+        // var episodesList = this.state.episodes;
+        // let episodes = episodesList.map((item, i) => {
+        //     return (
+        //         <ListItem key={i} item={item}/>
+        //     )
+        // })
+
+        //console.log('episodeslist:'+ episodesList.length)
         return(
             <section>
                 Your Collection:
@@ -128,7 +165,7 @@ class Collection extends React.Component {
                         <p>Duration: {this.state.modalData.runtime}min</p>
                         <div dangerouslySetInnerHTML={{__html: this.state.modalData.summary}}></div>
                         <ul>
-                            {episodes}
+                            {seasons}
                         </ul>
                     </ModalBody>
                     <ModalFooter>

@@ -58468,14 +58468,15 @@ class Results extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Collection_scss__ = __webpack_require__(376);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Collection_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Collection_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ListItem_jsx__ = __webpack_require__(387);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__EpisodesList_jsx__ = __webpack_require__(392);
 
 
 
 
 
-const API = 'http://api.tvmaze.com/';
+
 var get = __webpack_require__(378);
+const API = 'http://api.tvmaze.com/';
 
 class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
@@ -58487,7 +58488,6 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
                 snap.forEach(item => {
                     data.push(item.val());
                 });
-
                 this.setState({
                     items: data
                 });
@@ -58510,9 +58510,10 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
 
         this.getDetails = (id, detail) => {
             console.log(id);
-            let finalURL = `${API}shows/${id}`;
 
-            fetch(finalURL).then(res => res.json()).then(data => {
+            //fetching general info
+            let generalURL = `${API}shows/${id}`;
+            fetch(generalURL).then(res => res.json()).then(data => {
                 this.setState({
                     modalData: data
                 });
@@ -58525,6 +58526,24 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
                     }
                 });
             });
+
+            //fetching seasons
+            let seasonURL = `${API}shows/${id}/seasons`;
+            fetch(seasonURL).then(res => res.json()).then(data => {
+                this.setState({
+                    seasons: data
+                });
+            }).catch(err => {
+                console.log(err);
+                this.setState({
+                    modalData: {
+                        seasons: 'Sorry no seasons were found :('
+
+                    }
+                });
+            });
+
+            //fetching episode list
             let showURL = `${API}shows/${id}/episodes`;
             fetch(showURL).then(results => results.json()).then(data => {
                 this.setState({
@@ -58543,9 +58562,10 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
 
         this.state = {
             items: [],
+            modalData: '',
+            seasons: [],
             episodes: [],
-            modal: false,
-            modalData: ''
+            modal: false
         };
     }
 
@@ -58575,11 +58595,29 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
             );
         });
 
-        var episodesList = this.state.episodes;
-        let episodes = episodesList.map((item, i) => {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__ListItem_jsx__["a" /* default */], { key: i, item: item });
+        var seasonList = this.state.seasons;
+        let seasons = seasonList.map((item, i) => {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'ul',
+                { key: i },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h2',
+                    null,
+                    'Season: ',
+                    item.number
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__EpisodesList_jsx__["a" /* default */], { item: item })
+            );
         });
-        console.log('episodeslist:' + episodesList.length);
+
+        // var episodesList = this.state.episodes;
+        // let episodes = episodesList.map((item, i) => {
+        //     return (
+        //         <ListItem key={i} item={item}/>
+        //     )
+        // })
+
+        //console.log('episodeslist:'+ episodesList.length)
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'section',
             null,
@@ -58623,7 +58661,7 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'ul',
                         null,
-                        episodes
+                        seasons
                     )
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -76145,6 +76183,67 @@ exports.push([module.i, ".button-add:hover {\n  background: green; }\n\n.button-
 
 // exports
 
+
+/***/ }),
+/* 392 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fire_jsx__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ListItem_jsx__ = __webpack_require__(387);
+
+
+
+const API = 'http://api.tvmaze.com/';
+
+
+class EpisodesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(props) {
+        super(props);
+
+        this.toggle = () => {
+            this.setState({ collapse: !this.state.collapse });
+        };
+
+        this.state = {
+            collapse: false,
+            episodes: []
+        };
+    }
+
+
+    render() {
+        let seasonEpisodesURL = `${API}seasons/${this.props.item.id}/episodes`;
+        fetch(seasonEpisodesURL).then(results => results.json()).then(data => {
+            this.setState({
+                episodes: data
+            });
+        }).catch(error => {
+            this.setState({
+                episodes: {
+                    name: 'Sorry Again:(',
+                    summary: 'No episodes were found'
+                }
+            });
+        });
+
+        var episodesList = this.state.episodes;
+        let episodes = episodesList.map((item, i) => {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__ListItem_jsx__["a" /* default */], { key: i, item: item });
+        });
+
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            null,
+            episodes
+        );
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (EpisodesList);
 
 /***/ })
 /******/ ]);
