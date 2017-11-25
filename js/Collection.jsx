@@ -1,10 +1,9 @@
 import React from 'react';
 import fire from './fire.jsx';
-import {Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
+import {Modal, ModalHeader, ModalBody, ModalFooter, Button, Collapse, CardBody, Card } from 'reactstrap';
 import './Collection.scss';
-
 import EpisodesList from './EpisodesList.jsx';
-var get = require('lodash');
+
 const API = 'http://api.tvmaze.com/';
 
 class Collection extends React.Component {
@@ -15,7 +14,8 @@ class Collection extends React.Component {
             modalData: '',
             seasons: [],
             episodes: [],
-            modal: false
+            modal: false,
+            collapse: false
         };
     }
 
@@ -43,6 +43,11 @@ class Collection extends React.Component {
     toggle = () => {
         this.setState({
             modal: !this.state.modal
+        });
+    }
+    toggleCollapse = () => {
+        this.setState({
+            collapse: !this.state.collapse
         });
     }
 
@@ -86,24 +91,6 @@ class Collection extends React.Component {
                 }
             })
         } )
-
-        //fetching episode list
-        let showURL = `${API}shows/${id}/episodes`;
-        fetch(showURL)
-        .then( (results) => results.json() )
-        .then( (data) => {
-            this.setState({
-                episodes: data
-            })
-        })
-        .catch ( (error) => {
-            this.setState({
-                episodes: {
-                    name: 'Sorry Again:(',
-                    summary: 'No episodes were found'
-                }
-            })
-        })
         this.toggle();
     }
 
@@ -132,29 +119,25 @@ class Collection extends React.Component {
         let seasons = seasonList.map((item, i) =>{
             return(
                 <ul key={i}>
-                    <h2>
-                        Season: {item.number}
-                    </h2>
-                    <EpisodesList item={item}/>
+                    <Button onClick={this.toggleCollapse}> Season: {item.number}</Button>
+                    <Collapse isOpen={this.state.collapse}>
+                        <Card>
+                            <CardBody>
+                                <EpisodesList item={item}/>
+                            </CardBody>
+                        </Card>
+                    </Collapse>
                 </ul>
             )
         })
 
-
-        // var episodesList = this.state.episodes;
-        // let episodes = episodesList.map((item, i) => {
-        //     return (
-        //         <ListItem key={i} item={item}/>
-        //     )
-        // })
-
-        //console.log('episodeslist:'+ episodesList.length)
         return(
             <section>
                 Your Collection:
                 <ul className="list-thumbs">
                     {thumbnails}
                 </ul>
+
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>
                         {this.state.modalData.name}
