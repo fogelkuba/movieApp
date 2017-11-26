@@ -58663,44 +58663,42 @@ const API = 'http://api.tvmaze.com/';
 class Recent extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
         super(props);
-
-        this.getCollection = () => {
-            var data = [];
-            __WEBPACK_IMPORTED_MODULE_1__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/').on('value', snap => {
-                snap.forEach(item => {
-                    data.push(item.val());
-                });
-                this.setState({
-                    items: data
-                });
-            });
-            data = [];
-        };
-
-        this.componentWillMount = () => {
-            this.setState({
-                items: []
-            });
-            this.getCollection();
-        };
-
         this.state = {
             items: []
         };
     }
 
-
     render() {
         // console.log("Upcoming: " + this.props.userData)
-        var recent = this.state.item;
-        recentList = recent.map((item, i) => {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('li', { key: i });
+        var data = [];
+        __WEBPACK_IMPORTED_MODULE_1__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/').on('value', snap => {
+            snap.forEach(item => {
+                data.push(item.val());
+            });
+        });
+
+        let recentList = data.map((item, i) => {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'li',
+                { key: i },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'p',
+                    null,
+                    item.showName,
+                    ' ',
+                    i
+                )
+            );
         });
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'section',
             null,
             'Recent:',
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('ul', { className: 'list-thumbs' })
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'ul',
+                { className: 'list-thumbs' },
+                recentList
+            )
         );
     }
 }
@@ -58714,48 +58712,16 @@ class Recent extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fire_jsx__ = __webpack_require__(56);
-
-const API = 'http://api.tvmaze.com/';
 
 
 class Upcoming extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
-    constructor(props) {
-        super(props);
-
-        this.getCollection = () => {
-            var data = [];
-            __WEBPACK_IMPORTED_MODULE_1__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/').on('value', snap => {
-                snap.forEach(item => {
-                    data.push(item.val());
-                });
-                this.setState({
-                    items: data
-                });
-            });
-            data = [];
-        };
-
-        this.componentWillMount = () => {
-            this.setState({
-                items: []
-            });
-            this.getCollection();
-        };
-
-        this.state = {
-            items: []
-        };
-    }
-
-
     render() {
-        // console.log("Upcoming: " + this.props.userData)
+        // console.log("Recent: " + this.props.userData)
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'section',
+            "section",
             null,
-            'Upcoming:',
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('ul', { className: 'list-thumbs' })
+            "Upcoming:",
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("ul", { className: "list-thumbs" })
         );
     }
 }

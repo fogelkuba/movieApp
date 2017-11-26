@@ -9,34 +9,21 @@ class Recent extends React.Component {
             items: []
         };
     }
-    getCollection = () =>{
+
+    render(){
+        // console.log("Upcoming: " + this.props.userData)
         var data = [];
         fire.database().ref('users/' + this.props.userData.uid + '/shows/')
         .on('value', snap =>  {
            snap.forEach(item => {
               data.push(item.val());
            })
-           this.setState({
-               items: data
-           })
-       })
-       data = [];
-    }
-
-    componentWillMount =() =>{
-        this.setState({
-            items: []
         })
-        this.getCollection();
-    }
 
-    render(){
-        // console.log("Upcoming: " + this.props.userData)
-        var recent = this.state.item;
-        recentList = recent.map((item,i)=>{
+        let recentList = data.map((item, i) =>{
             return (
                 <li key={i}>
-
+                    <p>{item.showName} {i}</p>
                 </li>
             )
         })
@@ -44,7 +31,7 @@ class Recent extends React.Component {
             <section>
                 Recent:
                 <ul className="list-thumbs">
-
+                    {recentList}
                 </ul>
             </section>
         );
