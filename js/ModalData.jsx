@@ -1,9 +1,7 @@
 import React from 'react';
-import fire from './fire.jsx';
-import {Modal, ModalHeader, ModalBody, ModalFooter, Button, Collapse, CardBody, Card } from 'reactstrap';
-const API = 'http://api.tvmaze.com/';
-import EpisodesList from './EpisodesList.jsx';
+import {Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import Season from './Season.jsx';
+import fire from './fire.jsx';
 
 class ModalData extends React.Component {
     constructor(props){
@@ -11,23 +9,23 @@ class ModalData extends React.Component {
         this.state = {
             items: [],
             modalData: '',
-            seasons: [],
-            episodes: [],
             collapse: false,
         };
     }
 
-    // toggleCollapse = () => {
-    //     this.setState({
-    //         collapse: !this.state.collapse
-    //     });
-    // }
+    removeFromCollection = () => {
+        fire.database().ref('users/' + this.props.userData.uid + '/shows/'+ this.props.modalData.id).remove();
+    }
 
     render(){
         var seasonList = this.props.seasons;
         let seasons = seasonList.map((item, i) =>{
             return(
-                <Season key={i} item={item} />
+                <Season
+                    userData={this.props.userData}
+                    key={i}
+                    item={item}
+                    id={this.props.id}/>
             )
         })
         return(
@@ -45,7 +43,7 @@ class ModalData extends React.Component {
                     </ul>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={this.props.toggle}>Do Something</Button>{' '}
+                    <Button color="primary" onClick={this.removeFromCollection}>Remove</Button>{' '}
                     <Button color="secondary" onClick={this.props.toggle}>Cancel</Button>
                 </ModalFooter>
             </Modal>

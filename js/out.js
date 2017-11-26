@@ -58554,14 +58554,6 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
         };
     }
 
-    //===============================================
-
-    // toggleCollapse = () => {
-    //     this.setState({
-    //         collapse: !this.state.collapse
-    //     });
-    // }
-
     render() {
         var data = [];
         __WEBPACK_IMPORTED_MODULE_1__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/').on('value', snap => {
@@ -58588,22 +58580,6 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
             );
         });
 
-        // var seasonList = this.state.seasons;
-        // let seasons = seasonList.map((item, i) =>{
-        //     return(
-        //         <ul key={i}>
-        //             <Button onClick={this.toggleCollapse}> Season: {item.number}</Button>
-        //             <Collapse isOpen={this.state.collapse}>
-        //                 <Card>
-        //                     <CardBody>
-        //                         <EpisodesList item={item}/>
-        //                     </CardBody>
-        //                 </Card>
-        //             </Collapse>
-        //         </ul>
-        //     )
-        // })
-
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'section',
             null,
@@ -58614,6 +58590,7 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
                 thumbnails
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__ModalData_jsx__["a" /* default */], {
+                userData: this.props.userData,
                 modalData: this.state.modalData,
                 seasons: this.state.seasons,
                 id: this.state.id,
@@ -58623,25 +58600,6 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
     }
 }
 /* harmony default export */ __webpack_exports__["a"] = (Collection);
-
-//     {<Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-// <ModalHeader toggle={this.toggle}>
-//     {this.state.modalData.name}
-// </ModalHeader>
-// <ModalBody>
-//     <p>Status: {this.state.modalData.status}</p>
-//     <p>Premiered: {this.state.modalData.premiered}</p>
-//     <p>Duration: {this.state.modalData.runtime}min</p>
-//     <div dangerouslySetInnerHTML={{__html: this.state.modalData.summary}}></div>
-//     <ul>
-//         {seasons}
-//     </ul>
-// </ModalBody>
-// <ModalFooter>
-//     <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-//     <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-// </ModalFooter>
-// </Modal>}
 
 /***/ }),
 /* 376 */
@@ -58697,16 +58655,52 @@ exports.push([module.i, "ul.list-thumbs {\n  display: flex;\n  flex-direction: r
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fire_jsx__ = __webpack_require__(56);
+
+const API = 'http://api.tvmaze.com/';
 
 
 class Recent extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(props) {
+        super(props);
+
+        this.getCollection = () => {
+            var data = [];
+            __WEBPACK_IMPORTED_MODULE_1__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/').on('value', snap => {
+                snap.forEach(item => {
+                    data.push(item.val());
+                });
+                this.setState({
+                    items: data
+                });
+            });
+            data = [];
+        };
+
+        this.componentWillMount = () => {
+            this.setState({
+                items: []
+            });
+            this.getCollection();
+        };
+
+        this.state = {
+            items: []
+        };
+    }
+
+
     render() {
-        // console.log("Recent: " + this.props.userData)
+        // console.log("Upcoming: " + this.props.userData)
+        var recent = this.state.item;
+        recentList = recent.map((item, i) => {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('li', { key: i });
+        });
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "section",
+            'section',
             null,
-            "Recent:",
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("ul", { className: "list-thumbs" })
+            'Recent:',
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('ul', { className: 'list-thumbs' })
         );
     }
 }
@@ -58720,16 +58714,48 @@ class Recent extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fire_jsx__ = __webpack_require__(56);
+
+const API = 'http://api.tvmaze.com/';
 
 
 class Upcoming extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(props) {
+        super(props);
+
+        this.getCollection = () => {
+            var data = [];
+            __WEBPACK_IMPORTED_MODULE_1__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/').on('value', snap => {
+                snap.forEach(item => {
+                    data.push(item.val());
+                });
+                this.setState({
+                    items: data
+                });
+            });
+            data = [];
+        };
+
+        this.componentWillMount = () => {
+            this.setState({
+                items: []
+            });
+            this.getCollection();
+        };
+
+        this.state = {
+            items: []
+        };
+    }
+
+
     render() {
         // console.log("Upcoming: " + this.props.userData)
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "section",
+            'section',
             null,
-            "Upcoming:",
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("ul", { className: "list-thumbs" })
+            'Upcoming:',
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('ul', { className: 'list-thumbs' })
         );
     }
 }
@@ -58914,12 +58940,12 @@ function unregister() {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fire_jsx__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(34);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_reactstrap__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fire_jsx__ = __webpack_require__(56);
 
 
 const API = 'http://api.tvmaze.com/';
+
 
 class ListItem extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
@@ -58929,29 +58955,52 @@ class ListItem extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             this.setState({ collapse: !this.state.collapse });
         };
 
+        this.toggleWatched = () => {
+            console.log('obejrzano:' + this.props.item.id);
+            this.setState({
+                watched: !this.state.watched
+            });
+
+            console.log(!this.state.watched);
+            let id = this.props.item.id;
+            __WEBPACK_IMPORTED_MODULE_2__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.id + '/' + id).set({
+                watched: !this.state.watched
+            });
+        };
+
         this.state = {
-            collapse: false
+            collapse: false,
+            watched: false
         };
     }
 
+
+    componentWillMount() {
+        // fire.database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.id +'/'+ id)
+        // .on('value', snap => {
+        //     console.log(snap.val());
+        // })
+        console.log('will mount');
+    }
     render() {
+
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'li',
             null,
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox' }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: this.toggleWatched, type: 'checkbox', value: this.state.watched }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_2_reactstrap__["b" /* Button */],
+                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
                 { onClick: this.toggle },
                 this.props.item.name
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_2_reactstrap__["f" /* Collapse */],
+                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["f" /* Collapse */],
                 { isOpen: this.state.collapse },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_2_reactstrap__["c" /* Card */],
+                    __WEBPACK_IMPORTED_MODULE_1_reactstrap__["c" /* Card */],
                     null,
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        __WEBPACK_IMPORTED_MODULE_2_reactstrap__["d" /* CardBody */],
+                        __WEBPACK_IMPORTED_MODULE_1_reactstrap__["d" /* CardBody */],
                         null,
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'h4',
@@ -59031,13 +59080,10 @@ exports.push([module.i, ".button-add:hover {\n  background: green; }\n\n.button-
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fire_jsx__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ListItem_jsx__ = __webpack_require__(387);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_reactstrap__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ListItem_jsx__ = __webpack_require__(387);
 
 
-
-const API = 'http://api.tvmaze.com/';
 
 
 class EpisodesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
@@ -59056,23 +59102,13 @@ class EpisodesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
 
 
     render() {
-        let seasonEpisodesURL = `${API}seasons/${this.props.item.id}/episodes`;
-        fetch(seasonEpisodesURL).then(results => results.json()).then(data => {
-            this.setState({
-                episodes: data
-            });
-        }).catch(error => {
-            this.setState({
-                episodes: {
-                    name: 'Sorry Again:(',
-                    summary: 'No episodes were found'
-                }
-            });
-        });
-
-        var episodesList = this.state.episodes;
+        var episodesList = this.props.episodes;
         let episodes = episodesList.map((item, i) => {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__ListItem_jsx__["a" /* default */], { key: i, item: item });
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__ListItem_jsx__["a" /* default */], {
+                userData: this.props.userData,
+                key: i,
+                item: item,
+                id: this.props.id });
         });
 
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -59092,50 +59128,48 @@ class EpisodesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fire_jsx__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__EpisodesList_jsx__ = __webpack_require__(392);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Season_jsx__ = __webpack_require__(394);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_reactstrap__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Season_jsx__ = __webpack_require__(394);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__fire_jsx__ = __webpack_require__(56);
 
 
-
-const API = 'http://api.tvmaze.com/';
 
 
 
 class ModalData extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
         super(props);
+
+        this.removeFromCollection = () => {
+            __WEBPACK_IMPORTED_MODULE_3__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.modalData.id).remove();
+        };
+
         this.state = {
             items: [],
             modalData: '',
-            seasons: [],
-            episodes: [],
             collapse: false
         };
     }
 
-    // toggleCollapse = () => {
-    //     this.setState({
-    //         collapse: !this.state.collapse
-    //     });
-    // }
-
     render() {
         var seasonList = this.props.seasons;
         let seasons = seasonList.map((item, i) => {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Season_jsx__["a" /* default */], { key: i, item: item });
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Season_jsx__["a" /* default */], {
+                userData: this.props.userData,
+                key: i,
+                item: item,
+                id: this.props.id });
         });
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_2_reactstrap__["h" /* Modal */],
+            __WEBPACK_IMPORTED_MODULE_1_reactstrap__["h" /* Modal */],
             { isOpen: this.props.modal, toggle: this.props.toggle, className: this.props.className },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_2_reactstrap__["k" /* ModalHeader */],
+                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["k" /* ModalHeader */],
                 { toggle: this.props.toggle },
                 this.props.modalData.name
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_2_reactstrap__["i" /* ModalBody */],
+                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["i" /* ModalBody */],
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'p',
@@ -59164,16 +59198,16 @@ class ModalData extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
                 )
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_2_reactstrap__["j" /* ModalFooter */],
+                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["j" /* ModalFooter */],
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_2_reactstrap__["b" /* Button */],
-                    { color: 'primary', onClick: this.props.toggle },
-                    'Do Something'
+                    __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
+                    { color: 'primary', onClick: this.removeFromCollection },
+                    'Remove'
                 ),
                 ' ',
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_2_reactstrap__["b" /* Button */],
+                    __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
                     { color: 'secondary', onClick: this.props.toggle },
                     'Cancel'
                 )
@@ -59191,14 +59225,12 @@ class ModalData extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fire_jsx__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__EpisodesList_jsx__ = __webpack_require__(392);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_reactstrap__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__EpisodesList_jsx__ = __webpack_require__(392);
 
 
 
 const API = 'http://api.tvmaze.com/';
-
 
 class Season extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
@@ -59211,30 +59243,54 @@ class Season extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         };
 
         this.state = {
-            collapse: false
+            collapse: false,
+            episodes: []
         };
+    }
+
+    componentWillUpdate() {
+        let seasonEpisodesURL = `${API}seasons/${this.props.item.id}/episodes`;
+        fetch(seasonEpisodesURL).then(results => results.json()).then(data => {
+            if (this.refs.reference) {
+                this.setState({
+                    episodes: data
+                });
+            }
+        }).catch(error => {
+            this.setState({
+                episodes: {
+                    name: 'Sorry Again:(',
+                    summary: 'No episodes were found'
+                }
+            });
+            console.log(error);
+        });
     }
 
     render() {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'ul',
-            null,
+            { ref: 'reference' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_2_reactstrap__["b" /* Button */],
+                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
                 { onClick: this.toggle },
                 'Season: ',
                 this.props.item.number
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_2_reactstrap__["f" /* Collapse */],
+                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["f" /* Collapse */],
                 { isOpen: this.state.collapse },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_2_reactstrap__["c" /* Card */],
+                    __WEBPACK_IMPORTED_MODULE_1_reactstrap__["c" /* Card */],
                     null,
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        __WEBPACK_IMPORTED_MODULE_2_reactstrap__["d" /* CardBody */],
+                        __WEBPACK_IMPORTED_MODULE_1_reactstrap__["d" /* CardBody */],
                         null,
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__EpisodesList_jsx__["a" /* default */], { item: this.props.item })
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__EpisodesList_jsx__["a" /* default */], {
+                            episodes: this.state.episodes,
+                            userData: this.props.userData,
+                            item: this.props.item,
+                            id: this.props.id })
                     )
                 )
             )

@@ -1,8 +1,7 @@
 import React from 'react';
-import fire from './fire.jsx';
 import { Button, Collapse, CardBody, Card} from 'reactstrap';
-const API = 'http://api.tvmaze.com/';
 import ListItem from './ListItem.jsx';
+
 
 class EpisodesList extends React.Component {
     constructor(props){
@@ -13,31 +12,20 @@ class EpisodesList extends React.Component {
         };
     }
     toggle = () => {
-        this.setState({ collapse: !this.state.collapse });
+        this.setState(
+            { collapse: !this.state.collapse }
+        );
     }
 
     render(){
-        let seasonEpisodesURL = `${API}seasons/${this.props.item.id}/episodes`;
-        fetch(seasonEpisodesURL)
-        .then( (results) => results.json() )
-        .then( (data) => {
-            this.setState({
-                episodes: data
-            })
-        })
-        .catch ( (error) => {
-            this.setState({
-                episodes: {
-                    name: 'Sorry Again:(',
-                    summary: 'No episodes were found'
-                }
-            })
-        })
-
-        var episodesList = this.state.episodes;
+        var episodesList = this.props.episodes;
         let episodes = episodesList.map((item, i) => {
             return (
-                <ListItem key={i} item={item}/>
+                <ListItem
+                    userData={this.props.userData}
+                    key={i}
+                    item={item}
+                    id={this.props.id}/>
             )
         })
 

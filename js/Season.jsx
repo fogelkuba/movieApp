@@ -1,14 +1,14 @@
 import React from 'react';
-import fire from './fire.jsx';
-import {Modal, ModalHeader, ModalBody, ModalFooter, Button, Collapse, CardBody, Card } from 'reactstrap';
-const API = 'http://api.tvmaze.com/';
+import {Button, Collapse, CardBody, Card } from 'reactstrap';
 import EpisodesList from './EpisodesList.jsx';
+const API = 'http://api.tvmaze.com/';
 
 class Season extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             collapse: false,
+            episodes: []
         };
     }
 
@@ -18,14 +18,40 @@ class Season extends React.Component {
         });
     }
 
+    componentWillUpdate(){
+        let seasonEpisodesURL = `${API}seasons/${this.props.item.id}/episodes`;
+        fetch(seasonEpisodesURL)
+        .then( (results) => results.json() )
+        .then( (data) => {
+            if (this.refs.reference) {
+                this.setState({
+                    episodes: data
+                })
+            }
+        })
+        .catch ( (error) => {
+            this.setState({
+                episodes: {
+                    name: 'Sorry Again:(',
+                    summary: 'No episodes were found'
+                }
+            })
+            console.log(error)
+        })
+    }
+
     render(){
         return(
-            <ul>
+            <ul ref="reference">
                 <Button onClick={this.toggle}>Season: {this.props.item.number}</Button>
                     <Collapse isOpen={this.state.collapse}>
                         <Card>
                             <CardBody>
-                                <EpisodesList item={this.props.item}/>
+                                <EpisodesList
+                                    episodes={this.state.episodes}
+                                    userData={this.props.userData}
+                                    item={this.props.item}
+                                    id={this.props.id}/>
                             </CardBody>
                         </Card>
                     </Collapse>
