@@ -13,6 +13,10 @@ class ModalData extends React.Component {
         };
     }
 
+    shouldComponentUpdate = (nextProps, nextState) =>{
+        return nextState.collapse == this.state.collapse
+    }
+
     removeFromCollection = () => {
         fire.database().ref('users/' + this.props.userData.uid + '/shows/'+ this.props.modalData.id).remove();
     }

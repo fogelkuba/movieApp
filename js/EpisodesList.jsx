@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Collapse, CardBody, Card} from 'reactstrap';
 import ListItem from './ListItem.jsx';
-
+import fire from './fire.jsx';
 
 class EpisodesList extends React.Component {
     constructor(props){
@@ -16,6 +16,9 @@ class EpisodesList extends React.Component {
             { collapse: !this.state.collapse }
         );
     }
+    shouldComponentUpdate = (nextProps, nextState) =>{
+        return nextState.collapse == this.state.collapse
+    }
 
     render(){
         var episodesList = this.props.episodes;
@@ -25,7 +28,8 @@ class EpisodesList extends React.Component {
                     userData={this.props.userData}
                     key={i}
                     item={item}
-                    id={this.props.id}/>
+                    id={this.props.id}
+                    watched={this.props.watched}/>
             )
         })
 

@@ -16,12 +16,15 @@ class Results extends React.Component {
         .on('value', snap => {
             var data = snap.val()
             if (data !== null) {
+                //tutaj sprawdzic
+                console.log(data)
                 console.log('juz dodano')
             }else{
                 fire.database().ref('users/' + this.props.userData.uid + '/shows/'+ this.props.show.id).set({
                         showId: this.props.show.id,
                         showName: this.props.show.name,
-                        picture: this.props.show.image.medium
+                        picture: this.props.show.image.medium,
+                        watched: 'test'
                 })
                 console.log('Added to Firebase: ' + this.props.show.id + ' ' + this.props.show.name);
             }

@@ -24,23 +24,47 @@ class ListItem extends React.Component {
 
         console.log(!this.state.watched)
         let id = this.props.item.id;
-        fire.database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.id +'/'+ id).set({
+        fire.database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.id +'/watched/'+ id).set({
             watched: !this.state.watched
         })
     }
 
+    // shouldComponentUpdate = (nextProps, nextState) =>{
+    //     return nextState.collapse !== this.state.collapse
+    // }
+
     componentWillMount(){
-        // fire.database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.id +'/'+ id)
-        // .on('value', snap => {
-        //     console.log(snap.val());
-        // })
-        console.log('will mount')
+        // console.log('will mount');
+        let obj = {
+            watched: true
+        }
+        // if (this.props.watched.hasOwnProperty(this.props.item.id) && this.props.watched[this.props.item.id] == obj ) {
+        //     this.setState({
+        //         watched: true
+        //     })
+
+        // // }
+        //
+        if (this.props.watched.hasOwnProperty(this.props.item.id) == true ) {
+            this.setState({
+                watched: true
+            })
+        }
     }
     render(){
+        console.log('render');
+        let hasProperty = this.props.watched.hasOwnProperty(this.props.item.id);
+        let isWatched =
+        console.log('hasProperty:' + hasProperty + '|' + 'isWatched:' + this.props.watched[this.props.item.id]);
+        // console.log(this.props.watched[this.props.item.id].watched);
+        console.log('===');
+        // console.log(this.props.item.id)
+
 
         return(
             <li>
-                <input onChange={this.toggleWatched} type="checkbox" value={this.state.watched}/>
+                {status}
+                <input defaultChecked={this.state.watched} onChange={this.toggleWatched} type="checkbox" value={this.state.watched}/>
                 <Button onClick={this.toggle}>{this.props.item.name}</Button>
                 <Collapse isOpen={this.state.collapse}>
                     <Card>

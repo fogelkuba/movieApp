@@ -6,27 +6,33 @@ class Recent extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            items: []
+            items: ["1"]
         };
     }
-
-    render(){
-        // console.log("Upcoming: " + this.props.userData)
+    componentWillMount(){
         var data = [];
         fire.database().ref('users/' + this.props.userData.uid + '/shows/')
         .on('value', snap =>  {
            snap.forEach(item => {
-              data.push(item.val());
+              data.push(item.val().showId);
            })
         })
-
-        let recentList = data.map((item, i) =>{
+        this.setState({
+            items: data
+        })
+    }
+    render(){
+        console.log(this.state.items);
+        let recent = this.state.items;
+        let recentList = recent.forEach((item, i) => {
+            console.log(i)
             return (
                 <li key={i}>
-                    <p>{item.showName} {i}</p>
+                    <p>{item} Hello</p>
                 </li>
             )
-        })
+        });
+        console.log('after');
         return(
             <section>
                 Recent:

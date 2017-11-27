@@ -2,13 +2,15 @@ import React from 'react';
 import {Button, Collapse, CardBody, Card } from 'reactstrap';
 import EpisodesList from './EpisodesList.jsx';
 const API = 'http://api.tvmaze.com/';
+import fire from './fire.jsx';
 
 class Season extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             collapse: false,
-            episodes: []
+            episodes: [],
+            watched: []
         };
     }
 
@@ -16,6 +18,10 @@ class Season extends React.Component {
         this.setState({
             collapse: !this.state.collapse
         });
+    }
+
+    shouldComponentUpdate = (nextProps, nextState) =>{
+        return nextState.collapse == this.state.collapse && nextState.watched == this.state.watched
     }
 
     componentWillUpdate(){
@@ -38,6 +44,16 @@ class Season extends React.Component {
             })
             console.log(error)
         })
+
+
+    }
+    componentDidMount(){
+        fire.database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.id +'/watched/')
+        .once('value', snap => {
+            this.setState({
+                watched: snap.val()
+            });
+        })
     }
 
     render(){
@@ -51,7 +67,10 @@ class Season extends React.Component {
                                     episodes={this.state.episodes}
                                     userData={this.props.userData}
                                     item={this.props.item}
-                                    id={this.props.id}/>
+                                    id={this.props.id}
+                                    watched={this.state.watched}
+                                />
+
                             </CardBody>
                         </Card>
                     </Collapse>
