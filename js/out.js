@@ -58777,11 +58777,21 @@ class ListItem extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 watched: !this.state.watched
             });
 
-            console.log(!this.state.watched);
+            // console.log(!this.state.watched)
+
             let id = this.props.item.id;
-            __WEBPACK_IMPORTED_MODULE_2__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.id + '/watched/' + id).set({
-                watched: !this.state.watched
-            });
+            if (this.state.watched !== true) {
+                __WEBPACK_IMPORTED_MODULE_2__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.id + '/watched/' + id).set({
+                    // watched: !this.state.watched
+                    watched: true
+                });
+            } else {
+                __WEBPACK_IMPORTED_MODULE_2__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.id + '/watched/' + id).remove();
+            }
+        };
+
+        this.shouldComponentUpdate = (nextProps, nextState) => {
+            return nextState.collapse == this.state.collapse;
         };
 
         this.state = {
@@ -58791,22 +58801,13 @@ class ListItem extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     }
 
 
-    // shouldComponentUpdate = (nextProps, nextState) =>{
-    //     return nextState.collapse !== this.state.collapse
-    // }
-
     componentWillMount() {
         // console.log('will mount');
         let obj = {
             watched: true
-            // if (this.props.watched.hasOwnProperty(this.props.item.id) && this.props.watched[this.props.item.id] == obj ) {
-            //     this.setState({
-            //         watched: true
-            //     })
+        };
 
-            // // }
-            //
-        };if (this.props.watched.hasOwnProperty(this.props.item.id) == true) {
+        if (this.props.watched.hasOwnProperty(this.props.item.id) == true) {
             this.setState({
                 watched: true
             });
@@ -58815,9 +58816,10 @@ class ListItem extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     render() {
         console.log('render');
         let hasProperty = this.props.watched.hasOwnProperty(this.props.item.id);
-        let isWatched = console.log('hasProperty:' + hasProperty + '|' + 'isWatched:' + this.props.watched[this.props.item.id]);
+
+        // console.log('hasProperty:' + hasProperty + '|' + 'isWatched:' + this.props.watched[this.props.item.id]);
         // console.log(this.props.watched[this.props.item.id].watched);
-        console.log('===');
+        // console.log('===');
         // console.log(this.props.item.id)
 
 
