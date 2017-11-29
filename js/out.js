@@ -58310,7 +58310,12 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         super(props);
 
         this.searchQuery = query => {
-            let finalURL = `${API}singlesearch/shows?q=${query}`;
+            let finalURL;
+            if (this.state.queryType == 'person') {
+                finalURL = `${API}/people?q=${query}`;
+            } else {
+                finalURL = `${API}singlesearch/shows?q=${query}`;
+            }
 
             fetch(finalURL).then(res => res.json()).then(data => {
                 this.setState({
@@ -58337,15 +58342,16 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         };
 
         this.setSearch = e => {
-            setState({
-                searchType: e.target.value
+            console.log(e.target.value);
+            this.setState({
+                queryType: e.target.value
             });
         };
 
         this.clear = e => {
             e.preventDefault();
             this.setState({
-                queryType: '',
+                queryType: 'shows',
                 show: {
                     image: {
                         medium: ''
@@ -58356,7 +58362,7 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         };
 
         this.state = {
-            queryType: '',
+            queryType: 'shows',
             show: {
                 image: {
                     medium: ''
@@ -58370,7 +58376,7 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         var result;
         if (this.state.val !== '') {
             console.log('val: true');
-            result = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Results_jsx__["a" /* default */], { userData: this.props.userData, show: this.state.show, clear: this.clear });
+            result = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Results_jsx__["a" /* default */], { userData: this.props.userData, show: this.state.show, clear: this.clear, query: this.state.queryType });
         } else {
             result = '';
         }
@@ -58399,16 +58405,11 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                     { md: '3' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'select',
-                        { name: 'select', defaultValue: 'shows', onChange: this.setSearch },
+                        { name: 'select', defaultValue: 'shows', value: this.state.value, onChange: this.setSearch },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'option',
                             { value: 'shows' },
                             'Shows'
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'option',
-                            { value: 'genre' },
-                            'Genre'
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'option',
@@ -58482,40 +58483,48 @@ class Results extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     }
 
     render() {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_1_reactstrap__["o" /* Row */],
-            null,
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* Col */],
-                { sm: '12', md: '4', lg: '3' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: this.props.show.image.medium })
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* Col */],
+        if (this.props.query === 'person') {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'li',
+                null,
+                ' Person Search'
+            );
+        } else {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["o" /* Row */],
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'h2',
+                    __WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* Col */],
+                    { sm: '12', md: '4', lg: '3' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: this.props.show.image.medium })
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* Col */],
                     null,
-                    this.props.show.name
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { dangerouslySetInnerHTML: { __html: this.props.show.summary } }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
-                    { className: 'button-add', onClick: this.addToCollection },
-                    'Add'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
-                    { className: 'button-remove', onClick: this.removeFromCollection },
-                    'Remove'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
-                    { className: 'button-clear', onClick: this.props.clear },
-                    'Clear Search'
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'h2',
+                        null,
+                        this.props.show.name
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { dangerouslySetInnerHTML: { __html: this.props.show.summary } }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
+                        { className: 'button-add', onClick: this.addToCollection },
+                        'Add'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
+                        { className: 'button-remove', onClick: this.removeFromCollection },
+                        'Remove'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
+                        { className: 'button-clear', onClick: this.props.clear },
+                        'Clear Search'
+                    )
                 )
-            )
-        );
+            );
+        }
     }
 }
 /* harmony default export */ __webpack_exports__["a"] = (Results);
@@ -59181,7 +59190,6 @@ class Upcoming extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     }
     componentWillMount() {
         let finalURL = `${API}/schedule/full`;
-
         fetch(finalURL).then(res => res.json()).then(data => {
             this.setState({
                 schedule: data
@@ -59204,21 +59212,9 @@ class Upcoming extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         }).then(() => {
             let scheduleFull = this.state.schedule.map((item, i) => {
                 if (dataArr.includes(item._embedded.show.id)) {
-                    console.log(item._embedded.show.name);
-                    console.log(item.id);
+                    // console.log(item._embedded.show.name);
+                    // console.log(item.id);
                     this.state.temp.push(item);
-                    // return (
-                    //     <li key={i}>
-                    //         <span>{item._embedded.show.name}</span>
-                    //         <br/>
-                    //         <span>{item._embedded.show.id}</span>
-                    //         <br/>
-                    //         <p>
-                    //             Date:{item.airdate}
-                    //             Name: {item.name}
-                    //         </p>
-                    //     </li>
-                    // )
                 }
             });
             this.setState({
@@ -59227,19 +59223,12 @@ class Upcoming extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         });
     }
     render() {
-        console.log('render');
-        // console.log("Recent: " + this.props.userData)
-        // var data = [];
-        // fire.database().ref('users/' + this.props.userData.uid + '/shows/')
-        // .on('value', snap =>  {
-        //    snap.forEach(item => {
-        //       data.push(item.val().showId);
-        //    })
-        // })
         let toRenderMap = this.state.temp.map((item, i) => {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'li',
                 { key: i },
+                item.airdate,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'span',
                     null,
@@ -59249,21 +59238,17 @@ class Upcoming extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'span',
                     null,
-                    item._embedded.show.id
+                    item.name
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'p',
                     null,
-                    'Date:',
-                    item.airdate,
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
                     'Name: ',
                     item.name
                 )
             );
         });
-
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'section',
             null,

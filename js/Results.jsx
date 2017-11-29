@@ -43,23 +43,25 @@ class Results extends React.Component {
     }
 
     render(){
-        return(
-            <Row>
-                <Col sm="12" md="4" lg="3">
-                    <img src={this.props.show.image.medium}/>
-                </Col>
-                <Col>
-                    <h2>{this.props.show.name}</h2>
-                    <div dangerouslySetInnerHTML={{__html: this.props.show.summary}}></div>
-                    <Button className="button-add" onClick={this.addToCollection}>Add</Button>
-                    <Button className="button-remove" onClick={this.removeFromCollection}>Remove</Button>
-                    <Button className="button-clear" onClick={this.props.clear}>Clear Search</Button>
-                </Col>
+            if (this.props.query === 'person') {
+                return <li> Person Search</li>
+            }else{
+                return(
+                    <Row>
+                        <Col sm="12" md="4" lg="3">
+                            <img src={this.props.show.image.medium}/>
+                        </Col>
+                        <Col>
+                            <h2>{this.props.show.name}</h2>
+                            <div dangerouslySetInnerHTML={{__html: this.props.show.summary}}></div>
+                            <Button className="button-add" onClick={this.addToCollection}>Add</Button>
+                            <Button className="button-remove" onClick={this.removeFromCollection}>Remove</Button>
+                            <Button className="button-clear" onClick={this.props.clear}>Clear Search</Button>
+                        </Col>
+                    </Row>
+                )
+            }
 
-
-
-            </Row>
-        );
     }
 }
 export default Results;

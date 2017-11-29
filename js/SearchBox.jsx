@@ -7,7 +7,7 @@ class Search extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            queryType: '',
+            queryType: 'shows',
             show: {
                 image:{
                     medium: ''
@@ -18,7 +18,12 @@ class Search extends React.Component {
     }
 
     searchQuery = (query) => {
-        let finalURL = `${API}singlesearch/shows?q=${query}`;
+        let finalURL;
+        if (this.state.queryType == 'person') {
+            finalURL = `${API}/people?q=${query}`;
+        }else{
+            finalURL = `${API}singlesearch/shows?q=${query}`;
+        }
 
         fetch(finalURL)
         .then( (res) => res.json() )
@@ -46,14 +51,15 @@ class Search extends React.Component {
         this.refs.query.value = '';
     }
     setSearch = (e) => {
-        setState({
-            searchType: e.target.value
+        console.log(e.target.value)
+        this.setState({
+            queryType: e.target.value
         })
     }
     clear = (e) => {
         e.preventDefault();
         this.setState({
-            queryType: '',
+            queryType: 'shows',
             show: {
                 image:{
                     medium: ''
@@ -66,7 +72,7 @@ class Search extends React.Component {
         var result;
         if (this.state.val !== '') {
             console.log('val: true')
-            result = <Results userData={this.props.userData} show={this.state.show} clear={this.clear}/>
+            result = <Results userData={this.props.userData} show={this.state.show} clear={this.clear} query={this.state.queryType}/>
         }else{
             result = '';
         }
@@ -80,9 +86,8 @@ class Search extends React.Component {
                         </form>
                     </Col>
                     <Col md="3">
-                        <select name='select' defaultValue="shows" onChange={this.setSearch}>
+                        <select name='select' defaultValue="shows" value={this.state.value} onChange={this.setSearch}>
                             <option value='shows' >Shows</option>
-                            <option value='genre'>Genre</option>
                             <option value='person'>Person</option>
                         </select>
                     </Col>
