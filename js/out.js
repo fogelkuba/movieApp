@@ -58257,6 +58257,8 @@ function stop(id) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Upcoming_jsx__ = __webpack_require__(385);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__News_jsx__ = __webpack_require__(386);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_reactstrap__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__fire_jsx__ = __webpack_require__(24);
+
 
 
 
@@ -58266,6 +58268,13 @@ function stop(id) {
 
 
 class Profile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: []
+        };
+    }
+
     render() {
         // console.log("Profile: " + this.props.userData)
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -58274,7 +58283,7 @@ class Profile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__SearchBox_jsx__["a" /* default */], { userData: this.props.userData }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Collection_jsx__["a" /* default */], { userData: this.props.userData }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Recent_jsx__["a" /* default */], { userData: this.props.userData }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Upcoming_jsx__["a" /* default */], { userData: this.props.userData }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Upcoming_jsx__["a" /* default */], { userData: this.props.userData, data: this.state.data }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__News_jsx__["a" /* default */], null)
         );
     }
@@ -59081,37 +59090,59 @@ class Recent extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
         super(props);
         this.state = {
-            items: ["1"]
+            items: []
         };
     }
+
     componentWillMount() {
         var data = [];
         __WEBPACK_IMPORTED_MODULE_1__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/').on('value', snap => {
             snap.forEach(item => {
-                data.push(item.val().showId);
+                data.push(item.val());
             });
         });
-        this.setState({
-            items: data
-        });
+
+        // console.log(data.length)
+        for (var i = 0; i < data.length; i++) {
+            console.log(data[i]);
+        }
     }
+
     render() {
-        console.log(this.state.items);
-        let recent = this.state.items;
-        let recentList = recent.forEach((item, i) => {
-            console.log(i);
+        var data = [];
+        __WEBPACK_IMPORTED_MODULE_1__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/').on('value', snap => {
+            snap.forEach(item => {
+                data.push(item.val());
+            });
+        });
+
+        let thumbnails = data.map((item, i) => {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'li',
-                { key: i },
+                { key: i, id: item.showId,
+                    onClick: this.getDetails.bind(this, item.showId) },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'p',
+                    'div',
                     null,
-                    item,
-                    ' Hello'
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: item.picture }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'h3',
+                        null,
+                        item.showName
+                    )
                 )
             );
         });
-        console.log('after');
+
+        let recent = this.state.items;
+        // console.log(data)
+        // let recentList = recent.map((item, i) => {
+        //     return (
+        //         <li key={i}>
+        //             <p>{item} Hello</p>
+        //         </li>
+        //     )
+        // })
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'section',
             null,
@@ -59119,7 +59150,7 @@ class Recent extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'ul',
                 { className: 'list-thumbs' },
-                recentList
+                thumbnails
             )
         );
     }
@@ -59134,16 +59165,114 @@ class Recent extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fire_jsx__ = __webpack_require__(24);
+
+const API = 'http://api.tvmaze.com/';
 
 
 class Upcoming extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            schedule: [],
+            data: [],
+            temp: []
+        };
+    }
+    componentWillMount() {
+        let finalURL = `${API}/schedule/full`;
+
+        fetch(finalURL).then(res => res.json()).then(data => {
+            this.setState({
+                schedule: data
+            });
+        }).catch(err => {
+            console.log(err);
+            this.setState({
+                schedule: {
+                    name: 'Sorry :('
+                }
+            });
+        });
+
+        var dataArr = [];
+        var toRender = [];
+        __WEBPACK_IMPORTED_MODULE_1__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/').once('value').then(snap => {
+            var maps = snap.forEach(item => {
+                dataArr.push(item.val().showId);
+            });
+        }).then(() => {
+            let scheduleFull = this.state.schedule.map((item, i) => {
+                if (dataArr.includes(item._embedded.show.id)) {
+                    console.log(item._embedded.show.name);
+                    console.log(item.id);
+                    this.state.temp.push(item);
+                    // return (
+                    //     <li key={i}>
+                    //         <span>{item._embedded.show.name}</span>
+                    //         <br/>
+                    //         <span>{item._embedded.show.id}</span>
+                    //         <br/>
+                    //         <p>
+                    //             Date:{item.airdate}
+                    //             Name: {item.name}
+                    //         </p>
+                    //     </li>
+                    // )
+                }
+            });
+            this.setState({
+                data: true
+            });
+        });
+    }
     render() {
+        console.log('render');
         // console.log("Recent: " + this.props.userData)
+        // var data = [];
+        // fire.database().ref('users/' + this.props.userData.uid + '/shows/')
+        // .on('value', snap =>  {
+        //    snap.forEach(item => {
+        //       data.push(item.val().showId);
+        //    })
+        // })
+        let toRenderMap = this.state.temp.map((item, i) => {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'li',
+                { key: i },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'span',
+                    null,
+                    item._embedded.show.name
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'span',
+                    null,
+                    item._embedded.show.id
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'p',
+                    null,
+                    'Date:',
+                    item.airdate,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                    'Name: ',
+                    item.name
+                )
+            );
+        });
+
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "section",
+            'section',
             null,
-            "Upcoming:",
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("ul", { className: "list-thumbs" })
+            'Upcoming:',
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'ul',
+                { className: 'list-thumbs' },
+                toRenderMap
+            )
         );
     }
 }
