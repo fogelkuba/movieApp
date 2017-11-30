@@ -41,10 +41,35 @@ class Results extends React.Component {
             this.state.summ = this.props.show.summary;
         }
     }
+    componentWillMount(){
+        var personList = this.props.show.results.map((item, i) => {
+            return(
+                <li key={i}>
+                    <h3>{item.name}</h3>
+                </li>
+            )
+        })
+    }
 
     render(){
             if (this.props.query === 'person') {
-                return <li> Person Search</li>
+                // var personList = this.props.show.results.map((item, i) => {
+                //     return(
+                //         <li key={i}>
+                //             <h3>{item.name}</h3>
+                //         </li>
+                //     )
+                // })
+                return (
+                    <Row>
+                        <Col sm="12" md="12" lg="12">
+                            <ul className="list-thumbs">
+                                {personList}
+                            </ul>
+                        </Col>
+                        <Button className="button-clear" onClick={this.props.clear}>Clear Search</Button>
+                    </Row>
+                )
             }else{
                 return(
                     <Row>

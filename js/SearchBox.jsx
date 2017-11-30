@@ -2,6 +2,7 @@ import React from 'react';
 import Results from './Results.jsx'
 import { Row, Col} from 'reactstrap';
 const API = 'http://api.tvmaze.com/';
+const MovieDbApiKey = '15155c67d3284abfee39ffe45d44d7e2';
 
 class Search extends React.Component {
     constructor(props){
@@ -20,26 +21,41 @@ class Search extends React.Component {
     searchQuery = (query) => {
         let finalURL;
         if (this.state.queryType == 'person') {
-            finalURL = `${API}/people?q=${query}`;
+            // finalURL = `${API}/people?q=${query}`;
+            finalURL = `https://api.themoviedb.org/3/search/person?api_key=${MovieDbApiKey}&language=en-US&query=${query}&page=1&include_adult=false`;
+            fetch(finalURL)
+            .then( (res) => res.json() )
+            .then( (data) => {
+                this.setState({
+                    show: data
+                })
+            })
+            .catch( (err) => {
+                console.log(err);
+                this.setState({
+                    show: {
+                        name: 'Sorry :('
+                    }
+                })
+            })
         }else{
             finalURL = `${API}singlesearch/shows?q=${query}`;
+            fetch(finalURL)
+            .then( (res) => res.json() )
+            .then( (data) => {
+                this.setState({
+                    show: data,
+                })
+            })
+            .catch( (err) => {
+                console.log(err);
+                this.setState({
+                    show: {
+                        name: 'Sorry :('
+                    }
+                })
+            })
         }
-
-        fetch(finalURL)
-        .then( (res) => res.json() )
-        .then( (data) => {
-            this.setState({
-                show: data,
-            })
-        })
-        .catch( (err) => {
-            console.log(err);
-            this.setState({
-                show: {
-                    name: 'Sorry :('
-                }
-            })
-        } )
     }
     submitForm = (e) => {
         e.preventDefault();
