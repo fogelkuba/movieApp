@@ -12,6 +12,7 @@ class Upcoming extends React.Component {
         };
     }
     componentWillMount(){
+        console.log('updoming will mount')
         let finalURL = `${API}/schedule/full`;
         fetch(finalURL)
         .then( (res) => res.json() )
@@ -41,7 +42,7 @@ class Upcoming extends React.Component {
             let scheduleFull = this.state.schedule.map((item, i) =>{
                 if ( dataArr.includes(item._embedded.show.id  )) {
                     // console.log(item._embedded.show.name);
-                    // console.log(item.id);
+                    console.log(item.id);
                     this.state.temp.push(item)
                 }
             })
@@ -51,6 +52,7 @@ class Upcoming extends React.Component {
         })
     }
     render(){
+        console.log('upcoming render')
         let toRenderMap = this.state.temp.map((item, i)=>{
             return (
                 <li key={i}>

@@ -59242,6 +59242,7 @@ class Upcoming extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         };
     }
     componentWillMount() {
+        console.log('updoming will mount');
         let finalURL = `${API}/schedule/full`;
         fetch(finalURL).then(res => res.json()).then(data => {
             this.setState({
@@ -59266,7 +59267,7 @@ class Upcoming extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             let scheduleFull = this.state.schedule.map((item, i) => {
                 if (dataArr.includes(item._embedded.show.id)) {
                     // console.log(item._embedded.show.name);
-                    // console.log(item.id);
+                    console.log(item.id);
                     this.state.temp.push(item);
                 }
             });
@@ -59276,6 +59277,7 @@ class Upcoming extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         });
     }
     render() {
+        console.log('upcoming render');
         let toRenderMap = this.state.temp.map((item, i) => {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'li',
