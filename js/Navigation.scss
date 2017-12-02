@@ -1,7 +1,14 @@
 .navbar{
-    background: lightgray;
+    //background: lightgray;
     margin-bottom: 1em;
-}
-li{
-    list-style: none;
+    #logout{
+        border: none;
+        border-radius: 0;
+    }
+    .logo{
+        max-width: 150px;
+    }
+    .user{
+        color: white
+    }
 }

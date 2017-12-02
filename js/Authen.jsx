@@ -103,9 +103,9 @@ class Authen extends React.Component {
 
     render(){
         return(
-            <Container>
+            <Container className="authen">
                 <Row>
-                    <Col md={{size:4, offset:3}}>
+                    <Col md="12">
                         <input
                             id="email"
                             type="email"
@@ -115,7 +115,7 @@ class Authen extends React.Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md={{size:4, offset:1}}>
+                    <Col md="12">
                         <input
                             id="pass"
                             type="password"
@@ -125,12 +125,12 @@ class Authen extends React.Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md="4">
+                    <Col md="12">
                         <Alert color="secondary">{this.state.msg}</Alert>
                     </Col>
                 </Row>
                 <Row>
-                    <Col md="4">
+                    <Col md="12">
                         <Button
                             outline color="secondary"
                             onClick={this.login}>
@@ -151,7 +151,7 @@ class Authen extends React.Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md="4">
+                    <Col md="12">
                         <Button
                             outline color="danger"
                             onClick={this.google}

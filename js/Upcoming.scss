@@ -1,0 +1,16 @@
+.upcoming{
+    li{
+        padding: 10px;
+        h4{
+            color: white;
+            // font-weight: bold;
+        }
+        p{
+            color: #00aa7b;
+            &:first-of-type{
+                font-weight: bold;
+            }
+        }
+
+    }
+}

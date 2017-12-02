@@ -2,8 +2,41 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Futura', sans-serif;
+  background: black;
+  background: repeating-linear-gradient(
+  -64deg,
+  #000,
+  #000 10px,
+  darken(#00AA7B,30) 10px,
+  darken(#00AA7B,30) 20px
+);
+
 }
 section{
-    background: lighten(grey, 47);
+    // background: lighten(grey, 47);
+    color: #fff;
     margin: 5px;
+    margin-bottom: 30px;
+}
+h2{
+    font-weight: bold;
+}
+li{
+    list-style: none;
+}
+ul.list-thumbs{
+    &::-webkit-scrollbar{
+    height: 5px;
+    background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb{
+    border-radius: 0px;
+    background-color: #00AA7B;
+    // background-image: -webkit-gradient(linear,
+    //                                    40% 0%,
+    //                                    75% 84%,
+    //                                    from(#4D9C41),
+    //                                    to(#19911D),
+    //                                    color-stop(.6,#54DE5D))
+    }
 }

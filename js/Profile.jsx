@@ -26,8 +26,8 @@ class Profile extends React.Component {
                 <Collection userData={this.props.userData} />
                 <Upcoming userData={this.props.userData} data={this.state.data}/>
                 <Popular userData={this.props.userData}/>
-                <Recent userData={this.props.userData}/>
-                <News />
+                {/* <Recent userData={this.props.userData}/>
+                <News /> */}
                 <Credits/>
             </Container>
         );

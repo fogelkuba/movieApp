@@ -4,3 +4,21 @@ button{
 .hide{
   display: none;
 }
+.authen{
+    margin-top: 50px;
+    input{
+        color: white;
+        background: black;
+        border: 2px solid #00aa7b;
+        margin: 20px;
+        padding: 10px;
+    }
+    .col{
+        display: flex;
+        justify-content: center;
+    }
+    .alert.alert-secondary.fade.show{
+        background: transparent;
+        border: none;
+    }
+}

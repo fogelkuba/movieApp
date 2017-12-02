@@ -1,15 +1,29 @@
-.button-add{
-    &:hover{
-        background: green;
+.results{
+    margin: 50px 0;
+    border-bottom: 2px solid #00AA7B;
+    // border-left: 2px solid #00AA7B;
+    // padding: 10px;
+    button{
+        border-radius: 0;
+        background: transparent;
+        border: 2px solid #00AA7B;
     }
-}
-.button-remove{
-    &:hover{
-        background: darken(red, 20);
+    .button-add{
+        &:hover{
+            background: #00AA7B;
+            border-color: #00AA7B;
+        }
     }
-}
-.button-clear{
-    &:hover{
-        background: darken(yellow, 15);
+    .button-remove{
+        &:hover{
+            background: darken(red, 20);
+            border-color: darken(red, 20);
+        }
+    }
+    .button-clear{
+        &:hover{
+            background: darken(yellow, 15);
+            border-color: darken(yellow, 15);
+        }
     }
 }

@@ -42375,12 +42375,16 @@ class Navigation extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_1_reactstrap__["n" /* NavbarBrand */],
                     { href: '#' },
-                    'TvApp'
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'logo', src: 'images/TvAppLogo.png' })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_1_reactstrap__["l" /* NavItem */],
                     null,
-                    helloMsg
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { className: 'user' },
+                        helloMsg
+                    )
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
@@ -45863,7 +45867,7 @@ exports = module.exports = __webpack_require__(35)(undefined);
 
 
 // module
-exports.push([module.i, ".navbar {\n  background: lightgray;\n  margin-bottom: 1em; }\n\nli {\n  list-style: none; }\n", ""]);
+exports.push([module.i, ".navbar {\n  margin-bottom: 1em; }\n  .navbar #logout {\n    border: none;\n    border-radius: 0; }\n  .navbar .logo {\n    max-width: 150px; }\n  .navbar .user {\n    color: white; }\n", ""]);
 
 // exports
 
@@ -45986,13 +45990,13 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     render() {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             __WEBPACK_IMPORTED_MODULE_1_reactstrap__["g" /* Container */],
-            null,
+            { className: 'authen' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_1_reactstrap__["o" /* Row */],
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* Col */],
-                    { md: { size: 4, offset: 3 } },
+                    { md: '12' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
                         id: 'email',
                         type: 'email',
@@ -46005,7 +46009,7 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* Col */],
-                    { md: { size: 4, offset: 1 } },
+                    { md: '12' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
                         id: 'pass',
                         type: 'password',
@@ -46018,7 +46022,7 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* Col */],
-                    { md: '4' },
+                    { md: '12' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         __WEBPACK_IMPORTED_MODULE_1_reactstrap__["a" /* Alert */],
                         { color: 'secondary' },
@@ -46031,7 +46035,7 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* Col */],
-                    { md: '4' },
+                    { md: '12' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
                         {
@@ -46065,7 +46069,7 @@ class Authen extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* Col */],
-                    { md: '4' },
+                    { md: '12' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
                         {
@@ -46123,7 +46127,7 @@ exports = module.exports = __webpack_require__(35)(undefined);
 
 
 // module
-exports.push([module.i, "button {\n  margin: 5px; }\n\n.hide {\n  display: none; }\n", ""]);
+exports.push([module.i, "button {\n  margin: 5px; }\n\n.hide {\n  display: none; }\n\n.authen {\n  margin-top: 50px; }\n  .authen input {\n    color: white;\n    background: black;\n    border: 2px solid #00aa7b;\n    margin: 20px;\n    padding: 10px; }\n  .authen .col {\n    display: flex;\n    justify-content: center; }\n  .authen .alert.alert-secondary.fade.show {\n    background: transparent;\n    border: none; }\n", ""]);
 
 // exports
 
@@ -58289,8 +58293,6 @@ class Profile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Collection_jsx__["a" /* default */], { userData: this.props.userData }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__Upcoming_jsx__["a" /* default */], { userData: this.props.userData, data: this.state.data }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Popular_jsx__["a" /* default */], { userData: this.props.userData }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Recent_jsx__["a" /* default */], { userData: this.props.userData }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__News_jsx__["a" /* default */], null),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__Credits_jsx__["a" /* default */], null)
         );
     }
@@ -58307,48 +58309,33 @@ class Profile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Results_jsx__ = __webpack_require__(375);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__SearchBox_scss__ = __webpack_require__(400);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__SearchBox_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__SearchBox_scss__);
 
 
 
 const API = 'http://api.tvmaze.com/';
-const MovieDbApiKey = '15155c67d3284abfee39ffe45d44d7e2';
+
 
 class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
         super(props);
 
         this.searchQuery = query => {
-            let finalURL;
-            if (this.state.queryType == 'person') {
-                // finalURL = `${API}/people?q=${query}`;
-                finalURL = `https://api.themoviedb.org/3/search/person?api_key=${MovieDbApiKey}&language=en-US&query=${query}&page=1&include_adult=false`;
-                fetch(finalURL).then(res => res.json()).then(data => {
-                    this.setState({
-                        show: data
-                    });
-                }).catch(err => {
-                    console.log(err);
-                    this.setState({
-                        show: {
-                            name: 'Sorry :('
-                        }
-                    });
+            let finalURL = `${API}singlesearch/shows?q=${query}`;
+
+            fetch(finalURL).then(res => res.json()).then(data => {
+                this.setState({
+                    show: data
                 });
-            } else {
-                finalURL = `${API}singlesearch/shows?q=${query}`;
-                fetch(finalURL).then(res => res.json()).then(data => {
-                    this.setState({
-                        show: data
-                    });
-                }).catch(err => {
-                    console.log(err);
-                    this.setState({
-                        show: {
-                            name: 'Sorry :('
-                        }
-                    });
+            }).catch(err => {
+                console.log(err);
+                this.setState({
+                    show: {
+                        name: 'Sorry :('
+                    }
                 });
-            }
+            });
         };
 
         this.submitForm = e => {
@@ -58361,17 +58348,10 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             this.refs.query.value = '';
         };
 
-        this.setSearch = e => {
-            console.log(e.target.value);
-            this.setState({
-                queryType: e.target.value
-            });
-        };
-
         this.clear = e => {
             e.preventDefault();
             this.setState({
-                queryType: 'shows',
+                queryType: '',
                 show: {
                     image: {
                         medium: ''
@@ -58382,7 +58362,7 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         };
 
         this.state = {
-            queryType: 'shows',
+            queryType: '',
             show: {
                 image: {
                     medium: ''
@@ -58391,25 +58371,34 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             val: ''
         };
     }
+    // setSearch = (e) => {
+    //     setState({
+    //         searchType: e.target.value
+    //     })
+    // }
 
     render() {
         var result;
         if (this.state.val !== '') {
             console.log('val: true');
-            result = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Results_jsx__["a" /* default */], { userData: this.props.userData, show: this.state.show, clear: this.clear, query: this.state.queryType });
+            result = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Results_jsx__["a" /* default */], { userData: this.props.userData, show: this.state.show, clear: this.clear });
         } else {
             result = '';
         }
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'section',
             { className: 'search' },
-            'Search:',
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'h2',
+                null,
+                'Search:'
+            ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_2_reactstrap__["o" /* Row */],
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_2_reactstrap__["e" /* Col */],
-                    { md: '9' },
+                    { md: '12' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'form',
                         { onSubmit: this.submitForm },
@@ -58417,24 +58406,6 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                             'label',
                             null,
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'search', ref: 'query', placeholder: 'type username and hit enter' })
-                        )
-                    )
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_2_reactstrap__["e" /* Col */],
-                    { md: '3' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'select',
-                        { name: 'select', defaultValue: 'shows', value: this.state.value, onChange: this.setSearch },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'option',
-                            { value: 'shows' },
-                            'Shows'
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'option',
-                            { value: 'person' },
-                            'Person'
                         )
                     )
                 )
@@ -58501,83 +58472,42 @@ class Results extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             this.state.summ = this.props.show.summary;
         }
     }
-    componentWillMount() {
-        var personList = this.props.show.results.map((item, i) => {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'li',
-                { key: i },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'h3',
-                    null,
-                    item.name
-                )
-            );
-        });
-    }
 
     render() {
-        if (this.props.query === 'person') {
-            // var personList = this.props.show.results.map((item, i) => {
-            //     return(
-            //         <li key={i}>
-            //             <h3>{item.name}</h3>
-            //         </li>
-            //     )
-            // })
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["o" /* Row */],
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_1_reactstrap__["o" /* Row */],
+            { className: 'results' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* Col */],
+                { sm: '12', md: '4', lg: '3' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: this.props.show.image.medium })
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* Col */],
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* Col */],
-                    { sm: '12', md: '12', lg: '12' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'ul',
-                        { className: 'list-thumbs' },
-                        personList
-                    )
+                    'h2',
+                    null,
+                    this.props.show.name
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { dangerouslySetInnerHTML: { __html: this.props.show.summary } }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
+                    { className: 'button-add', onClick: this.addToCollection },
+                    'Add'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
+                    { className: 'button-remove', onClick: this.removeFromCollection },
+                    'Remove'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
                     { className: 'button-clear', onClick: this.props.clear },
                     'Clear Search'
                 )
-            );
-        } else {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_1_reactstrap__["o" /* Row */],
-                null,
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* Col */],
-                    { sm: '12', md: '4', lg: '3' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: this.props.show.image.medium })
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    __WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* Col */],
-                    null,
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'h2',
-                        null,
-                        this.props.show.name
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { dangerouslySetInnerHTML: { __html: this.props.show.summary } }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
-                        { className: 'button-add', onClick: this.addToCollection },
-                        'Add'
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
-                        { className: 'button-remove', onClick: this.removeFromCollection },
-                        'Remove'
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        __WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* Button */],
-                        { className: 'button-clear', onClick: this.props.clear },
-                        'Clear Search'
-                    )
-                )
-            );
-        }
+            )
+        );
     }
 }
 /* harmony default export */ __webpack_exports__["a"] = (Results);
@@ -58622,7 +58552,7 @@ exports = module.exports = __webpack_require__(35)(undefined);
 
 
 // module
-exports.push([module.i, ".button-add:hover {\n  background: green; }\n\n.button-remove:hover {\n  background: #990000; }\n\n.button-clear:hover {\n  background: #b3b300; }\n", ""]);
+exports.push([module.i, ".results {\n  margin: 50px 0;\n  border-bottom: 2px solid #00AA7B; }\n  .results button {\n    border-radius: 0;\n    background: transparent;\n    border: 2px solid #00AA7B; }\n  .results .button-add:hover {\n    background: #00AA7B;\n    border-color: #00AA7B; }\n  .results .button-remove:hover {\n    background: #990000;\n    border-color: #990000; }\n  .results .button-clear:hover {\n    background: #b3b300;\n    border-color: #b3b300; }\n", ""]);
 
 // exports
 
@@ -58743,7 +58673,7 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
                     onClick: this.getDetails.bind(this, item.showId) },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    null,
+                    { className: 'thumbnails' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: item.picture }),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'h3',
@@ -58757,7 +58687,11 @@ class Collection extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'section',
             null,
-            'Your Collection:',
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'h2',
+                null,
+                'Your Collection:'
+            ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'ul',
                 { className: 'list-thumbs' },
@@ -58815,7 +58749,7 @@ exports = module.exports = __webpack_require__(35)(undefined);
 
 
 // module
-exports.push([module.i, "ul.list-thumbs {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: nowrap;\n  overflow-x: scroll;\n  overflow-y: hidden;\n  padding: 0; }\n  ul.list-thumbs li {\n    transition: 0.2s ease-in-out;\n    position: relative; }\n    ul.list-thumbs li:hover {\n      cursor: pointer;\n      transform: scale(1.05); }\n    ul.list-thumbs li h3 {\n      position: absolute;\n      bottom: 0;\n      width: 100%;\n      margin-bottom: 0;\n      padding: 20px 10px;\n      color: white;\n      font-weight: bold;\n      text-shadow: 0 0 2px black;\n      font-size: 1.25em; }\n    ul.list-thumbs li div {\n      position: relative; }\n      ul.list-thumbs li div:before {\n        content: '';\n        position: absolute;\n        background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.9) 90%);\n        width: 100%;\n        height: 100%; }\n", ""]);
+exports.push([module.i, "ul.list-thumbs {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: nowrap;\n  overflow-x: scroll;\n  overflow-y: hidden;\n  padding: 0; }\n  ul.list-thumbs li {\n    transition: 0.2s ease-in-out;\n    position: relative; }\n    ul.list-thumbs li:hover {\n      cursor: pointer;\n      transform: scale(1.05); }\n    ul.list-thumbs li h3 {\n      position: absolute;\n      bottom: 0;\n      width: 100%;\n      margin-bottom: 0;\n      padding: 20px 10px;\n      color: white;\n      font-weight: bold;\n      text-shadow: 0 0 2px black;\n      font-size: 1.25em; }\n    ul.list-thumbs li .thumbnails {\n      position: relative; }\n      ul.list-thumbs li .thumbnails:before {\n        content: '';\n        position: absolute;\n        background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.9) 90%);\n        width: 100%;\n        height: 100%; }\n", ""]);
 
 // exports
 
@@ -59218,7 +59152,7 @@ class Recent extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     }
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (Recent);
+/* unused harmony default export */ var _unused_webpack_default_export = (Recent);
 
 /***/ }),
 /* 385 */
@@ -59228,8 +59162,11 @@ class Recent extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fire_jsx__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Upcoming_scss__ = __webpack_require__(398);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Upcoming_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Upcoming_scss__);
 
 const API = 'http://api.tvmaze.com/';
+
 
 
 class Upcoming extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
@@ -59282,20 +59219,18 @@ class Upcoming extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'li',
                 { key: i },
-                item.airdate,
+                'Date:',
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h4',
+                    null,
+                    item.airdate
+                ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'span',
+                    'p',
                     null,
                     item._embedded.show.name
                 ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'span',
-                    null,
-                    item.name
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'p',
                     null,
@@ -59307,10 +59242,14 @@ class Upcoming extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'section',
             null,
-            'Upcoming:',
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'h2',
+                null,
+                'Upcoming:'
+            ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'ul',
-                { className: 'list-thumbs' },
+                { className: 'list-thumbs upcoming' },
                 toRenderMap
             )
         );
@@ -59339,7 +59278,7 @@ class News extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     }
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (News);
+/* unused harmony default export */ var _unused_webpack_default_export = (News);
 
 /***/ }),
 /* 387 */
@@ -59406,7 +59345,7 @@ exports = module.exports = __webpack_require__(35)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Futura', sans-serif; }\n\nsection {\n  background: #f8f8f8;\n  margin: 5px; }\n", ""]);
+exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Futura', sans-serif;\n  background: black;\n  background: repeating-linear-gradient(-64deg, #000, #000 10px, #00110c 10px, #00110c 20px); }\n\nsection {\n  color: #fff;\n  margin: 5px;\n  margin-bottom: 30px; }\n\nh2 {\n  font-weight: bold; }\n\nli {\n  list-style: none; }\n\nul.list-thumbs::-webkit-scrollbar {\n  height: 5px;\n  background-color: transparent; }\n\nul.list-thumbs::-webkit-scrollbar-thumb {\n  border-radius: 0px;\n  background-color: #00AA7B; }\n", ""]);
 
 // exports
 
@@ -59555,7 +59494,7 @@ exports = module.exports = __webpack_require__(35)(undefined);
 
 
 // module
-exports.push([module.i, ".api-logo {\n  margin: 0 auto;\n  justify-content: center; }\n  .api-logo .logo {\n    margin: 10px;\n    max-width: 100px;\n    height: auto; }\n", ""]);
+exports.push([module.i, ".api-logo {\n  border-top: 1px solid #00aa7b;\n  color: white;\n  margin: 0 auto;\n  justify-content: center;\n  margin-bottom: 20px;\n  margin-top: 20px; }\n  .api-logo .logo {\n    margin: 10px;\n    max-width: 100px;\n    height: auto; }\n", ""]);
 
 // exports
 
@@ -59568,46 +59507,85 @@ exports.push([module.i, ".api-logo {\n  margin: 0 auto;\n  justify-content: cent
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fire_jsx__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Popular_scss__ = __webpack_require__(396);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Popular_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Popular_scss__);
+
+
+
+
 
 const API = 'http://api.tvmaze.com/';
-
 const MovieDbApiKey = '15155c67d3284abfee39ffe45d44d7e2';
 
 class Popular extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
         super(props);
+
+        this.prevList = () => {
+            let number = this.state.page;
+            if (number > 1) {
+                number--;
+                this.setState({
+                    page: number
+                });
+            }
+        };
+
+        this.nextList = () => {
+            let number = this.state.page;
+            number++;
+            this.setState({
+                page: number
+            });
+        };
+
         this.state = {
-            items: []
+            items: [],
+            page: 1
         };
     }
 
-    componentWillMount() {}
+
     render() {
-        let finalURL = `https://api.themoviedb.org/3/tv/popular?api_key=15155c67d3284abfee39ffe45d44d7e2&language=en-US&page=1`;
+        let finalURL = `https://api.themoviedb.org/3/tv/popular?api_key=15155c67d3284abfee39ffe45d44d7e2&language=en-US&page=${this.state.page}`;
         fetch(finalURL).then(res => res.json()).then(data => {
             var toRender = data.results.map((item, i) => {
+                let img = `https://image.tmdb.org/t/p/w500/${item.poster_path}`;
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'li',
                     { key: i },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'h4',
-                        null,
-                        item.name
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'p',
-                        null,
-                        item.popularity
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'p',
-                        null,
-                        item.vote_average
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'p',
-                        null,
-                        item.first_air_date
+                        'div',
+                        { className: 'thumbnails' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: img }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'h3',
+                            null,
+                            item.name
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'popular-info' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'p',
+                                null,
+                                'Popularity: ',
+                                item.popularity
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'p',
+                                null,
+                                'First air: ',
+                                item.first_air_date
+                            ),
+                            'Rating:',
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'span',
+                                { className: 'rating' },
+                                item.vote_average
+                            )
+                        )
                     )
                 );
             });
@@ -59623,17 +59601,175 @@ class Popular extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'section',
             null,
-            'Popular:',
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'h2',
+                null,
+                'Popular:'
+            ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'ul',
-                { className: 'list-thumbs' },
+                { className: 'list-thumbs popular' },
                 popularList
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'popular-navigation' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_2_reactstrap__["b" /* Button */],
+                    { onClick: this.prevList },
+                    'Prev'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'span',
+                    null,
+                    this.state.page
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    __WEBPACK_IMPORTED_MODULE_2_reactstrap__["b" /* Button */],
+                    { onClick: this.nextList },
+                    'Next'
+                )
             )
         );
     }
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Popular);
+
+/***/ }),
+/* 396 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(397);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(36)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./Popular.scss", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./Popular.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 397 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(35)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".popular .thumbnails {\n  cursor: default; }\n\n.popular img {\n  max-width: 200px; }\n\n.popular .popular-info {\n  background: linear-gradient(to top, transparent 20%, rgba(0, 0, 0, 0.9) 90%);\n  position: absolute;\n  top: -100%;\n  width: 100%;\n  height: 100%;\n  padding: 10px;\n  transition: 0.3s; }\n\n.popular .thumbnails:hover .popular-info {\n  top: 0; }\n\n.popular .rating {\n  background: #00AA7B;\n  padding: 1px 3px;\n  font-size: 1.5em;\n  vertical-align: top;\n  margin-left: 2px;\n  min-width: 35px;\n  text-align: center; }\n\n.btn {\n  border-radius: 0;\n  background: transparent;\n  border: 2px solid #00AA7B;\n  margin: 10px; }\n  .btn:hover {\n    background: #00AA7B;\n    border-color: #00AA7B; }\n\n.popular-navigation {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 398 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(399);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(36)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./Upcoming.scss", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./Upcoming.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 399 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(35)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".upcoming li {\n  padding: 10px; }\n  .upcoming li h4 {\n    color: white; }\n  .upcoming li p {\n    color: #00aa7b; }\n    .upcoming li p:first-of-type {\n      font-weight: bold; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 400 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(401);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(36)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./SearchBox.scss", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./SearchBox.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 401 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(35)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".search label {\n  width: 100%; }\n  .search label input {\n    width: 100%;\n    color: white;\n    background: transparent;\n    font-size: 2em;\n    border: 2px solid #00AA7B;\n    padding: 5px 15px; }\n\n.modal-content {\n  background: black;\n  color: #00AA7B; }\n  .modal-content .close {\n    color: white; }\n  .modal-content .card {\n    border: none; }\n  .modal-content ul {\n    padding-left: 0; }\n  .modal-content h4.modal-title {\n    font-weight: bold;\n    color: white;\n    font-size: 2.5em; }\n  .modal-content .card-body {\n    border: none;\n    background: black; }\n    .modal-content .card-body h4 {\n      font-weight: bold;\n      color: white;\n      font-size: 1.5em; }\n    .modal-content .card-body hr {\n      height: 2px;\n      background: #00aa7b; }\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);

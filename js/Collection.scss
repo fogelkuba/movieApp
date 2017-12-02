@@ -5,6 +5,7 @@ ul.list-thumbs{
     overflow-x: scroll;
     overflow-y: hidden;
     padding: 0;
+
     li{
         transition: 0.2s ease-in-out;
         position: relative;
@@ -23,7 +24,7 @@ ul.list-thumbs{
             text-shadow: 0 0 2px black;
             font-size: 1.25em;
         }
-        div{
+        .thumbnails{
             position: relative;
             &:before{
                 content: '';

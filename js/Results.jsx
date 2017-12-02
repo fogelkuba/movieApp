@@ -41,52 +41,25 @@ class Results extends React.Component {
             this.state.summ = this.props.show.summary;
         }
     }
-    componentWillMount(){
-        var personList = this.props.show.results.map((item, i) => {
-            return(
-                <li key={i}>
-                    <h3>{item.name}</h3>
-                </li>
-            )
-        })
-    }
 
     render(){
-            if (this.props.query === 'person') {
-                // var personList = this.props.show.results.map((item, i) => {
-                //     return(
-                //         <li key={i}>
-                //             <h3>{item.name}</h3>
-                //         </li>
-                //     )
-                // })
-                return (
-                    <Row>
-                        <Col sm="12" md="12" lg="12">
-                            <ul className="list-thumbs">
-                                {personList}
-                            </ul>
-                        </Col>
-                        <Button className="button-clear" onClick={this.props.clear}>Clear Search</Button>
-                    </Row>
-                )
-            }else{
-                return(
-                    <Row>
-                        <Col sm="12" md="4" lg="3">
-                            <img src={this.props.show.image.medium}/>
-                        </Col>
-                        <Col>
-                            <h2>{this.props.show.name}</h2>
-                            <div dangerouslySetInnerHTML={{__html: this.props.show.summary}}></div>
-                            <Button className="button-add" onClick={this.addToCollection}>Add</Button>
-                            <Button className="button-remove" onClick={this.removeFromCollection}>Remove</Button>
-                            <Button className="button-clear" onClick={this.props.clear}>Clear Search</Button>
-                        </Col>
-                    </Row>
-                )
-            }
+        return(
+            <Row className="results">
+                <Col sm="12" md="4" lg="3">
+                    <img src={this.props.show.image.medium}/>
+                </Col>
+                <Col>
+                    <h2>{this.props.show.name}</h2>
+                    <div dangerouslySetInnerHTML={{__html: this.props.show.summary}}></div>
+                    <Button className="button-add" onClick={this.addToCollection}>Add</Button>
+                    <Button className="button-remove" onClick={this.removeFromCollection}>Remove</Button>
+                    <Button className="button-clear" onClick={this.props.clear}>Clear Search</Button>
+                </Col>
 
+
+
+            </Row>
+        );
     }
 }
 export default Results;

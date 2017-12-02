@@ -1,6 +1,7 @@
 import React from 'react';
 const API = 'http://api.tvmaze.com/';
 import fire from './fire.jsx';
+import './Upcoming.scss';
 
 class Upcoming extends React.Component {
     constructor(props){
@@ -56,21 +57,18 @@ class Upcoming extends React.Component {
         let toRenderMap = this.state.temp.map((item, i)=>{
             return (
                 <li key={i}>
-                    {item.airdate}<br/>
-                    <span>{item._embedded.show.name}</span>
+                    Date:
+                    <h4>{item.airdate}</h4>
                     <br/>
-                    <span>{item.name}</span>
-                    <br/>
-                    <p>
-                        Name: {item.name}
-                    </p>
+                    <p>{item._embedded.show.name}</p>
+                    <p>Name: {item.name}</p>
                 </li>
             )
         })
         return(
             <section>
-                Upcoming:
-                <ul className="list-thumbs">
+                <h2>Upcoming:</h2>
+                <ul className="list-thumbs upcoming">
                     {toRenderMap}
                 </ul>
             </section>

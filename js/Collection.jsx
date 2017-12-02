@@ -105,7 +105,7 @@ class Collection extends React.Component {
             return (
                 <li key={i} id={item.showId}
                     onClick={this.getDetails.bind(this, item.showId)}>
-                    <div>
+                    <div className="thumbnails">
                         <img src={item.picture}/>
                         <h3>{item.showName}</h3>
                     </div>
@@ -115,7 +115,7 @@ class Collection extends React.Component {
 
         return(
             <section>
-                Your Collection:
+                <h2>Your Collection:</h2>
                 <ul className="list-thumbs">
                     {thumbnails}
                 </ul>

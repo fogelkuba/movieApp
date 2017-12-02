@@ -20,9 +20,9 @@ class Navigation extends React.Component {
         return(
             <div>
                 <Navbar>
-                    <NavbarBrand href="#">TvApp</NavbarBrand>
+                    <NavbarBrand href="#"><img className="logo" src="images/TvAppLogo.png"/></NavbarBrand>
                     <NavItem>
-                        {helloMsg}
+                        <span className="user">{helloMsg}</span>
                     </NavItem>
                     <Button
                         outline color="secondary"
