@@ -10,8 +10,6 @@
             height: 100%;
             background: #00aa7b;
             transform: skewX(-26deg);
-
-
         }
         padding: 10px;
         h4{
@@ -25,5 +23,18 @@
             }
         }
 
+    }
+    li:last-of-type{
+        &:before{
+            display: none;
+        }
+    }
+
+}
+@media screen and (max-width: 768px){
+    .upcoming{
+        li{
+            min-width: 200px;
+        }
     }
 }

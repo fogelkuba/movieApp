@@ -6,9 +6,14 @@
         border-radius: 0;
     }
     .logo{
-        max-width: 150px;
+        max-width: 100px;
     }
     .user{
         color: white
+    }
+}
+@media screen and (min-width: 500px){
+    .logo{
+        max-width: 150px;
     }
 }

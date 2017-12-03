@@ -15,7 +15,7 @@ class Navigation extends React.Component {
         if( typeof(mail) === 'undefined'){
             helloMsg = ''
         }else{
-            helloMsg =`Hello ${this.props.userEmail} `
+            helloMsg =`${this.props.userEmail} `
         }
         return(
             <div>
@@ -29,7 +29,7 @@ class Navigation extends React.Component {
                         onClick={this.props.logOut}
                         id="logout"
                         className="">
-                        <FontAwesome name="sign-out"/> Log Out
+                        <FontAwesome name="sign-out"/>LogOut
                     </Button>
                 </Navbar>
 
