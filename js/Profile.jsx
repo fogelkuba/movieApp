@@ -14,20 +14,28 @@ class Profile extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            data: []
+            data: [],
+            setSearch: ''
         };
     }
+
+    setSearch = (val) =>{
+        this.setState({
+            setSearch: val
+        })
+    }
+
 
     render(){
         // console.log("Profile: " + this.props.userData)
         return(
             <Container>
-                <SearchBox userData={this.props.userData}/>
                 <Collection userData={this.props.userData} />
-                <Upcoming userData={this.props.userData} data={this.state.data}/>
-                <Popular userData={this.props.userData}/>
+                <SearchBox userData={this.props.userData} searchValFromPopular={this.state.setSearch}/>
+                <Popular userData={this.props.userData} setSearch={this.setSearch}/>
                 {/* <Recent userData={this.props.userData}/>
                 <News /> */}
+                <Upcoming userData={this.props.userData} data={this.state.data}/>
                 <Credits/>
             </Container>
         );

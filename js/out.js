@@ -58279,8 +58279,16 @@ function stop(id) {
 class Profile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
         super(props);
+
+        this.setSearch = val => {
+            this.setState({
+                setSearch: val
+            });
+        };
+
         this.state = {
-            data: []
+            data: [],
+            setSearch: ''
         };
     }
 
@@ -58289,10 +58297,10 @@ class Profile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             __WEBPACK_IMPORTED_MODULE_8_reactstrap__["g" /* Container */],
             null,
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__SearchBox_jsx__["a" /* default */], { userData: this.props.userData }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Collection_jsx__["a" /* default */], { userData: this.props.userData }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__SearchBox_jsx__["a" /* default */], { userData: this.props.userData, searchValFromPopular: this.state.setSearch }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Popular_jsx__["a" /* default */], { userData: this.props.userData, setSearch: this.setSearch }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__Upcoming_jsx__["a" /* default */], { userData: this.props.userData, data: this.state.data }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Popular_jsx__["a" /* default */], { userData: this.props.userData }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__Credits_jsx__["a" /* default */], null)
         );
     }
@@ -58320,6 +58328,8 @@ const API = 'http://api.tvmaze.com/';
 class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
         super(props);
+
+        this.searchFromPopular = () => {};
 
         this.searchQuery = query => {
             let finalURL = `${API}singlesearch/shows?q=${query}`;
@@ -58371,6 +58381,15 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             val: ''
         };
     }
+    // componentWillUpdate(){
+    //     if (this.props.searchValFromPopular !== '') {
+    //         this.setState({
+    //             val: this.props.searchValFromPopular
+    //         });
+    //         this.searchQuery(this.props.searchValFromPopular);
+    //     }
+    // }
+
     // setSearch = (e) => {
     //     setState({
     //         searchType: e.target.value
@@ -59219,7 +59238,6 @@ class Upcoming extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'li',
                 { key: i },
-                'Date:',
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'h4',
                     null,
@@ -59540,6 +59558,11 @@ class Popular extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             });
         };
 
+        this.searchFromPopular = e => {
+            console.log(e.currentTarget.dataset.name);
+            this.props.setSearch(e.currentTarget.dataset.name);
+        };
+
         this.state = {
             items: [],
             page: 1
@@ -59554,7 +59577,7 @@ class Popular extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 let img = `https://image.tmdb.org/t/p/w500/${item.poster_path}`;
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'li',
-                    { key: i },
+                    { key: i, 'data-name': item.name, onClick: this.searchFromPopular },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'thumbnails' },
@@ -59721,7 +59744,7 @@ exports = module.exports = __webpack_require__(35)(undefined);
 
 
 // module
-exports.push([module.i, ".upcoming li {\n  padding: 10px; }\n  .upcoming li h4 {\n    color: white; }\n  .upcoming li p {\n    color: #00aa7b; }\n    .upcoming li p:first-of-type {\n      font-weight: bold; }\n", ""]);
+exports.push([module.i, ".upcoming li {\n  position: relative;\n  margin-right: 75px;\n  padding: 10px; }\n  .upcoming li:before {\n    content: '';\n    position: absolute;\n    right: -30px;\n    width: 9px;\n    height: 100%;\n    background: #00aa7b;\n    transform: skewX(-26deg); }\n  .upcoming li h4 {\n    color: white; }\n  .upcoming li p {\n    color: #00aa7b; }\n    .upcoming li p:first-of-type {\n      font-weight: bold; }\n", ""]);
 
 // exports
 

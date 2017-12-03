@@ -57,7 +57,6 @@ class Upcoming extends React.Component {
         let toRenderMap = this.state.temp.map((item, i)=>{
             return (
                 <li key={i}>
-                    Date:
                     <h4>{item.airdate}</h4>
                     <br/>
                     <p>{item._embedded.show.name}</p>

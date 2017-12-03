@@ -1,5 +1,18 @@
 .upcoming{
     li{
+        position: relative;
+        margin-right: 75px;
+        &:before{
+            content: '';
+            position: absolute;
+            right: -30px;
+            width: 9px;
+            height: 100%;
+            background: #00aa7b;
+            transform: skewX(-26deg);
+
+
+        }
         padding: 10px;
         h4{
             color: white;

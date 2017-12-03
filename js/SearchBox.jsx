@@ -17,6 +17,17 @@ class Search extends React.Component {
             val: ''
         };
     }
+    searchFromPopular = () => {
+
+    }
+    // componentWillUpdate(){
+    //     if (this.props.searchValFromPopular !== '') {
+    //         this.setState({
+    //             val: this.props.searchValFromPopular
+    //         });
+    //         this.searchQuery(this.props.searchValFromPopular);
+    //     }
+    // }
 
     searchQuery = (query) => {
         let finalURL = `${API}singlesearch/shows?q=${query}`;

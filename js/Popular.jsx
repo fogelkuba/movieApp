@@ -30,6 +30,10 @@ class Popular extends React.Component {
             page: number
         })
     }
+    searchFromPopular = (e) => {
+        console.log(e.currentTarget.dataset.name);
+        this.props.setSearch(e.currentTarget.dataset.name);
+    }
 
     render(){
         let finalURL = `https://api.themoviedb.org/3/tv/popular?api_key=15155c67d3284abfee39ffe45d44d7e2&language=en-US&page=${this.state.page}`;
@@ -39,7 +43,7 @@ class Popular extends React.Component {
             var toRender = data.results.map((item, i)=>{
                 let img = `https://image.tmdb.org/t/p/w500/${item.poster_path}`
                 return (
-                    <li key={i}>
+                    <li key={i} data-name={item.name} onClick={this.searchFromPopular}>
                         <div className="thumbnails">
                             <img src={img}/>
                             <h3>{item.name}</h3>
