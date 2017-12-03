@@ -16,8 +16,9 @@ class EpisodesList extends React.Component {
             { collapse: !this.state.collapse }
         );
     }
+
     shouldComponentUpdate = (nextProps, nextState) =>{
-        return nextState.collapse == this.state.collapse
+        return nextProps.episodes == this.props.episodes;
     }
 
     render(){

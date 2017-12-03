@@ -47,7 +47,7 @@ class Season extends React.Component {
 
 
     }
-    componentDidMount(){
+    componentWillMount(){
         fire.database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.id +'/watched/')
         .once('value', snap => {
             this.setState({

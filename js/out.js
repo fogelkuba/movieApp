@@ -30155,7 +30155,7 @@ class EpisodesList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
         };
 
         this.shouldComponentUpdate = (nextProps, nextState) => {
-            return nextState.collapse == this.state.collapse;
+            return nextProps.episodes == this.props.episodes;
         };
 
         this.state = {
@@ -58281,9 +58281,9 @@ class Profile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         super(props);
 
         this.setSearch = val => {
-            this.setState({
-                setSearch: val
-            });
+            // this.setState({
+            //     setSearch: val
+            // })
         };
 
         this.state = {
@@ -58791,6 +58791,11 @@ class ListItem extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
         super(props);
 
+        this.shouldComponentUpdate = (nextProps, nextState) => {
+            // return (nextState.collapse !== this.state.collapse || nextProps.item !== this.props.item)
+            return nextProps.item == this.props.item;
+        };
+
         this.toggle = () => {
             this.setState({ collapse: !this.state.collapse });
         };
@@ -58814,16 +58819,11 @@ class ListItem extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             }
         };
 
-        this.shouldComponentUpdate = (nextProps, nextState) => {
-            return nextState.collapse == this.state.collapse;
-        };
-
         this.state = {
             collapse: false,
             watched: false
         };
     }
-
 
     componentWillMount() {
         // console.log('will mount');
@@ -58839,7 +58839,7 @@ class ListItem extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     }
     render() {
         console.log('render');
-        let hasProperty = this.props.watched.hasOwnProperty(this.props.item.id);
+        // let hasProperty = this.props.watched.hasOwnProperty(this.props.item.id);
 
         // console.log('hasProperty:' + hasProperty + '|' + 'isWatched:' + this.props.watched[this.props.item.id]);
         // console.log(this.props.watched[this.props.item.id].watched);
@@ -59046,7 +59046,7 @@ class Season extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             console.log(error);
         });
     }
-    componentDidMount() {
+    componentWillMount() {
         __WEBPACK_IMPORTED_MODULE_3__fire_jsx__["a" /* default */].database().ref('users/' + this.props.userData.uid + '/shows/' + this.props.id + '/watched/').once('value', snap => {
             this.setState({
                 watched: snap.val()
@@ -59363,7 +59363,7 @@ exports = module.exports = __webpack_require__(35)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Futura', sans-serif;\n  background: black;\n  background: repeating-linear-gradient(-64deg, #000, #000 10px, #00110c 10px, #00110c 20px); }\n\nsection {\n  color: #fff;\n  margin: 5px;\n  margin-bottom: 30px; }\n\nh2 {\n  font-weight: bold; }\n\nli {\n  list-style: none; }\n\nul.list-thumbs::-webkit-scrollbar {\n  height: 5px;\n  background-color: transparent; }\n\nul.list-thumbs::-webkit-scrollbar-thumb {\n  border-radius: 0px;\n  background-color: #00AA7B; }\n", ""]);
+exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Futura', sans-serif;\n  background: black;\n  background: repeating-linear-gradient(-64deg, #000, #000 10px, #000c09 10px, #000c09 20px); }\n\nsection {\n  color: #fff;\n  margin: 5px;\n  margin-bottom: 30px; }\n\nh2 {\n  font-weight: bold; }\n\nli {\n  list-style: none; }\n\nul.list-thumbs::-webkit-scrollbar {\n  height: 5px;\n  background-color: transparent; }\n\nul.list-thumbs::-webkit-scrollbar-thumb {\n  border-radius: 0px;\n  background-color: #00AA7B; }\n", ""]);
 
 // exports
 

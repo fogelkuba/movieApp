@@ -20,9 +20,9 @@ class Profile extends React.Component {
     }
 
     setSearch = (val) =>{
-        this.setState({
-            setSearch: val
-        })
+        // this.setState({
+        //     setSearch: val
+        // })
     }
 
 

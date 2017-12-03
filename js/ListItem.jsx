@@ -11,10 +11,15 @@ class ListItem extends React.Component {
             watched: false
         };
     }
+
+    shouldComponentUpdate = (nextProps, nextState) =>{
+        // return (nextState.collapse !== this.state.collapse || nextProps.item !== this.props.item)
+        return ( nextProps.item == this.props.item)
+    }
+
     toggle = () => {
         this.setState({ collapse: !this.state.collapse });
     }
-
 
     toggleWatched = () => {
         console.log('obejrzano:' + this.props.item.id);
@@ -37,9 +42,6 @@ class ListItem extends React.Component {
 
     }
 
-    shouldComponentUpdate = (nextProps, nextState) =>{
-        return nextState.collapse == this.state.collapse
-    }
 
     componentWillMount(){
         // console.log('will mount');
@@ -55,7 +57,7 @@ class ListItem extends React.Component {
     }
     render(){
         console.log('render');
-        let hasProperty = this.props.watched.hasOwnProperty(this.props.item.id);
+        // let hasProperty = this.props.watched.hasOwnProperty(this.props.item.id);
 
         // console.log('hasProperty:' + hasProperty + '|' + 'isWatched:' + this.props.watched[this.props.item.id]);
         // console.log(this.props.watched[this.props.item.id].watched);
