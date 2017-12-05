@@ -116,6 +116,7 @@ class Authen extends React.Component {
                 </Row>
                 <Row>
                     <Col md="12">
+
                         <input
                             id="pass"
                             type="password"

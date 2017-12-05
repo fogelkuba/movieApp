@@ -12,6 +12,10 @@ button{
         border: 2px solid #00aa7b;
         margin: 20px;
         padding: 10px;
+        width: 340px;
+    }
+    #google{
+        width: 340px;
     }
     .col{
         display: flex;
@@ -21,4 +25,5 @@ button{
         background: transparent;
         border: none;
     }
+
 }
