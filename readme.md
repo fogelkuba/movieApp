@@ -3,6 +3,9 @@
 ### Web app for tv series maniacs.
 Now You won't miss any episode of your favourite show!
 
+![screenshot](screenshot.png)
+
+
 ### Technologies used:
 - React
 - Firebase
